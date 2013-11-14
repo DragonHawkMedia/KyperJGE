@@ -1,6 +1,7 @@
 package dragonhawk.kyperj.core;
 
 import dragonhawk.kyperj.core.display.DisplaySettings;
+import dragonhawk.kyperj.core.display.GameDisplay;
 import dragonhawk.kyperj.core.display.Java2DGameDisplay;
 import dragonhawk.kyperj.core.graphics.GraphicsComponent;
 

@@ -14,7 +14,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import dragonhawk.kyperj.core.GameDisplay;
+import dragonhawk.kyperj.core.display.GameDisplay;
 import dragonhawk.kyperj.core.display.Java2DGameDisplay;
 
 public class Java2DGraphicsComponent implements GraphicsComponent{

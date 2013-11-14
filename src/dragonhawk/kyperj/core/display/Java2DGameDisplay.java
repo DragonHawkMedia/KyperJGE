@@ -14,7 +14,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-import dragonhawk.kyperj.core.GameDisplay;
 import dragonhawk.kyperj.core.KyperJGame;
 import dragonhawk.kyperj.core.graphics.GraphicsComponent;
 import dragonhawk.kyperj.core.graphics.Java2DGraphicsComponent;

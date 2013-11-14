@@ -1,6 +1,6 @@
-package dragonhawk.kyperj.core;
+package dragonhawk.kyperj.core.display;
 
-import dragonhawk.kyperj.core.display.DisplaySettings;
+import dragonhawk.kyperj.core.KyperJGame;
 import dragonhawk.kyperj.core.graphics.GraphicsComponent;
 
 public interface GameDisplay {
