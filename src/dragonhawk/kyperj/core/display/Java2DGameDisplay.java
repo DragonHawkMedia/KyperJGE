@@ -20,16 +20,23 @@ import dragonhawk.kyperj.core.graphics.Java2DGraphicsComponent;
 
 public class Java2DGameDisplay implements GameDisplay {
 
+	/*our displays frame*/
 	private JFrame frame;
+	/*the canvas our game will be constantly drawn on*/
 	private Canvas game_canvas;
+	/*the strategy used for buffering our game*/
 	private BufferStrategy render_strategy;
+	/*the settings for our game*/
 	private DisplaySettings Rsettings;
+	/*our displays icon*/
 	private Image icon;
+	/*the game containing this display*/
 	private KyperJGame container;
+	/*the graphics component for this type of display*/
 	private Java2DGraphicsComponent j2dgc;
+	/*the last time a frame happened*/
 	private long lastFrame;
-
-
+	/*is the display fullscreen?*/
 	private boolean fullscreen = false;
 
 	
@@ -103,19 +110,23 @@ public class Java2DGameDisplay implements GameDisplay {
 		sync(Rsettings.getSync());
 	}
 	
+	/**
+	 * sync the display to the desired digit
+	 * @param sync
+	 */
 	public void sync(int sync) {
 	      if (sync!=-1) {
-	         long gapTo = 1000000000L / sync + lastFrame;
-	         long timeNow = System.nanoTime();
+	         long diff = 1000000000L / sync + lastFrame;
+	         long now = System.nanoTime();
 	         
 	         try {
-	            while (gapTo > timeNow) {
-	               Thread.sleep((gapTo-timeNow) / 2000000L);
-	               timeNow = System.nanoTime();
+	            while (diff > now) {
+	               Thread.sleep((diff-now) / 2000000L);
+	               now = System.nanoTime();
 	            }
 	         } catch (Exception e) {}
 
-	         lastFrame = timeNow;
+	         lastFrame = now;
 	      } 
 	 }
 

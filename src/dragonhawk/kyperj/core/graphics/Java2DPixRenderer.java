@@ -1,12 +1,16 @@
 package dragonhawk.kyperj.core.graphics;
 
-public class Java2DRenderer {
+/**
+ * Experimental pixel renderer
+ *
+ */
+public class Java2DPixRenderer {
 	
 	int width , height;
 	
 	int pixels[];
 	
-	public Java2DRenderer(int width, int height){
+	public Java2DPixRenderer(int width, int height){
 		this.width = width;
 		this.height = height;
 		pixels = new int[width*height];

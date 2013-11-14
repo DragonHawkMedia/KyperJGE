@@ -24,7 +24,7 @@ public class Java2DGraphicsComponent implements GraphicsComponent{
 	private BufferStrategy strat;
 	private Graphics2D graphics;
 	private GameDisplay display;
-	private Java2DRenderer j2dr;
+	private Java2DPixRenderer j2dr;
 	
 	private Image test1;
 	
@@ -36,7 +36,7 @@ public class Java2DGraphicsComponent implements GraphicsComponent{
 		this.strat = ((Java2DGameDisplay)display).getStrategy();
 	    display_image = toCompatibleImage(new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB));
 	    pixels = ((DataBufferInt)display_image.getRaster().getDataBuffer()).getData();
-	    j2dr = new Java2DRenderer(width, height);
+	    j2dr = new Java2DPixRenderer(width, height);
 	    
 	    try {
 			test1 = ImageIO.read(new File("C:/Users/john/Desktop/KyperbeltJGE/logo.png"));
@@ -47,11 +47,6 @@ public class Java2DGraphicsComponent implements GraphicsComponent{
 	    
 	    test1 = toCompatibleImage((BufferedImage) test1);
 	    
-	}
-
-	@Override
-	public void setGraphicsComponent(Object gc) {
-		
 	}
 
 	@Override
