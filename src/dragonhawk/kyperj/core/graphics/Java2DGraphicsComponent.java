@@ -12,8 +12,10 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import dragonhawk.kyperj.core.display.DisplaySettings;
 import dragonhawk.kyperj.core.display.GameDisplay;
 import dragonhawk.kyperj.core.display.Java2DGameDisplay;
+import dragonhawk.kyperj.core.display.Resolution;
 
 public class Java2DGraphicsComponent implements GraphicsComponent{
 	
@@ -31,8 +33,8 @@ public class Java2DGraphicsComponent implements GraphicsComponent{
 	public Java2DGraphicsComponent(GameDisplay display){
 		clear_color = java.awt.Color.black;
 		this.display = display;
-		int width = display.getDisplaySettings().getWidth();
-		int height = display.getDisplaySettings().getHeight();
+	//	int width = display.getDisplaySettings().getWidth();
+	//	int height = display.getDisplaySettings().getHeight();
 		this.strat = ((Java2DGameDisplay)display).getStrategy();
 	 //   display_image = toCompatibleImage(new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB));
 	 //   pixels = ((DataBufferInt)display_image.getRaster().getDataBuffer()).getData();
@@ -56,19 +58,29 @@ public class Java2DGraphicsComponent implements GraphicsComponent{
 
 	@Override
 	public void fillRect(int x, int y, int width, int height) {
-		graphics.fillRect(x, y, width, height);
+		DisplaySettings s = display.getDisplaySettings();
+		graphics.fillRect((int)(x*s.getScale()), (int)(y*s.getScale()), 
+				 (int)(width*s.getScale()), (int)(height*s.getScale()));
 		
+	}
+	
+	public void drawRect(int x, int y, int width, int height){
+		DisplaySettings s = display.getDisplaySettings();
+		graphics.drawRect((int)(x*s.getScale()),(int) (y*s.getScale()),
+				 (int)(width*s.getScale()), (int)(height*s.getScale()));
 	}
 
 	@Override
 	public void drawLine(Point point1, Point point2) {
-		graphics.drawLine(point1.x, point1.y, point2.x, point2.y);
+		DisplaySettings s = display.getDisplaySettings();
+		graphics.drawLine((int)(point1.x*s.getScale()), (int)(point1.y*s.getScale()), 
+				 (int)(point2.x*s.getScale()), (int)(point2.y*s.getScale()));
 		
 	}
 
 	@Override
 	public void draw(GameImage image, int x, int y) {
-		
+		DisplaySettings s = display.getDisplaySettings();
 	}
 
 	@Override
@@ -118,7 +130,7 @@ public class Java2DGraphicsComponent implements GraphicsComponent{
 		graphics = (Graphics2D) strat.getDrawGraphics();
 		graphics.setColor(clear_color);
 		graphics.fillRect(0, 0, display.getWidth(), display.getHeight());
-		graphics.drawImage(test1, 0 , 0, display.getWidth()	, display.getHeight(), null);
+		//graphics.drawImage(test1, 0 , 0, display.getWidth()	, display.getHeight(), null);
 	
 	}
 

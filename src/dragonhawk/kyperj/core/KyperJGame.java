@@ -45,10 +45,19 @@ public abstract class KyperJGame implements Runnable{
 	
 	/**
 	 * set the Display settings that our game display will use
+	 * DEFAULT = 60
 	 * @param settings - display settings our game display will use
 	 */
 	public void setDisplaySettings(DisplaySettings settings){
 		this.settings = settings;
+	}
+	
+	/**
+	 *	set the amount of updates there will be per second
+	 * @param ups updates per second
+	 */
+	public void setUPS(int ups){
+		this.UPDATES_PER_SECOND = ups;
 	}
 	
 	/**
@@ -156,7 +165,6 @@ public abstract class KyperJGame implements Runnable{
 	 * game loop end. 
 	 */
 	public void stop(){
-		System.out.println("stopped?");
 		running = false;
 	}
 	

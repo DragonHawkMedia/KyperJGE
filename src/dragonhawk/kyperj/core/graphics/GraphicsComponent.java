@@ -19,6 +19,15 @@ public interface GraphicsComponent {
 	public void fillRect(int x, int y , int width, int height);
 	
 	/**
+	 * draw a rectangle width the specified dimensions and location
+	 * @param x x location of rectangle top left 
+	 * @param y y location of rectangle top left
+	 * @param width width of rectangle 
+	 * @param height height of rectangle
+	 */
+	public void drawRect(int x, int y, int width, int height);
+	
+	/**
 	 * draw a line between two points
 	 * @param point1 starting point
 	 * @param point2 ending point
