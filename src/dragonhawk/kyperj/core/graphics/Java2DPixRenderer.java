@@ -27,7 +27,7 @@ public class Java2DPixRenderer {
 	public void render(){
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
-				pixels[3 + (3*width)] = 0xFF00FF;
+				pixels[0 + (0*width)] = 0xFF00FF;
 			}
 		}
 	}

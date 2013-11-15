@@ -121,7 +121,8 @@ public class Java2DGraphicsComponent implements GraphicsComponent{
 		}
 		
 		graphics = (Graphics2D) strat.getDrawGraphics();
-		
+		graphics.setColor(java.awt.Color.black);
+		graphics.fillRect(0, 0, display.getWidth(), display.getHeight());
 		graphics.drawImage(display_image, 0 , 0, display.getWidth()	, display.getHeight(), null);
 	
 	}

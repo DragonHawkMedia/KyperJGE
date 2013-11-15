@@ -9,10 +9,10 @@ public class test extends KyperJGame{
 
 	public void initialize() {
 		setMode(JAVA2D);
-		DisplaySettings settings = new DisplaySettings(new Resolution(50,16,9,20f));
-		settings.setTripleBuffer(true);
-		settings.setResize(true);
-		//settings.setSync(100);
+		DisplaySettings settings = new DisplaySettings(new Resolution(40,4,3,10f));
+		settings.setTripleBuffer(false);
+		settings.setResize(false);
+		settings.setSync(30);
 		settings.setTitle("Priscilla has no GAME");
 		setDisplaySettings(settings);
 		
