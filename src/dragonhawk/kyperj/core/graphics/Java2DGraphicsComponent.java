@@ -1,6 +1,5 @@
 package dragonhawk.kyperj.core.graphics;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
@@ -8,7 +7,6 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
 import java.io.File;
 import java.io.IOException;
 
@@ -19,24 +17,26 @@ import dragonhawk.kyperj.core.display.Java2DGameDisplay;
 
 public class Java2DGraphicsComponent implements GraphicsComponent{
 	
-	BufferedImage display_image;
-	private int pixels[];
+	//BufferedImage display_image;
+	//private int pixels[];
 	private BufferStrategy strat;
 	private Graphics2D graphics;
 	private GameDisplay display;
-	private Java2DPixRenderer j2dr;
+	//private Java2DPixRenderer j2dr;
+	private java.awt.Color clear_color;
 	
 	private Image test1;
 	
 	
 	public Java2DGraphicsComponent(GameDisplay display){
+		clear_color = java.awt.Color.black;
 		this.display = display;
 		int width = display.getDisplaySettings().getWidth();
 		int height = display.getDisplaySettings().getHeight();
 		this.strat = ((Java2DGameDisplay)display).getStrategy();
-	    display_image = toCompatibleImage(new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB));
-	    pixels = ((DataBufferInt)display_image.getRaster().getDataBuffer()).getData();
-	    j2dr = new Java2DPixRenderer(width, height);
+	 //   display_image = toCompatibleImage(new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB));
+	 //   pixels = ((DataBufferInt)display_image.getRaster().getDataBuffer()).getData();
+	 //   j2dr = new Java2DPixRenderer(width, height);
 	    
 	    try {
 			test1 = ImageIO.read(new File("C:/Users/john/Desktop/KyperbeltJGE/logo.png"));
@@ -50,19 +50,19 @@ public class Java2DGraphicsComponent implements GraphicsComponent{
 	}
 
 	@Override
-	public void setColor(Color color) {
-		
+	public void setColor(java.awt.Color color) {
+		graphics.setColor(color);
 	}
 
 	@Override
 	public void fillRect(int x, int y, int width, int height) {
-		// TODO Auto-generated method stub
+		graphics.fillRect(x, y, width, height);
 		
 	}
 
 	@Override
 	public void drawLine(Point point1, Point point2) {
-		// TODO Auto-generated method stub
+		graphics.drawLine(point1.x, point1.y, point2.x, point2.y);
 		
 	}
 
@@ -72,8 +72,8 @@ public class Java2DGraphicsComponent implements GraphicsComponent{
 	}
 
 	@Override
-	public void setClearColor(Color color) {
-		// TODO Auto-generated method stub
+	public void setClearColor(java.awt.Color color) {
+		clear_color = color;
 	}
 	
 	
@@ -115,15 +115,10 @@ public class Java2DGraphicsComponent implements GraphicsComponent{
 				e.printStackTrace();
 			}
 		
-		j2dr.render();
-		for (int i = 0; i < pixels.length; i++) {
-			pixels[i] = j2dr.pixels[i];
-		}
-		
 		graphics = (Graphics2D) strat.getDrawGraphics();
-		graphics.setColor(java.awt.Color.black);
+		graphics.setColor(clear_color);
 		graphics.fillRect(0, 0, display.getWidth(), display.getHeight());
-		graphics.drawImage(display_image, 0 , 0, display.getWidth()	, display.getHeight(), null);
+		graphics.drawImage(test1, 0 , 0, display.getWidth()	, display.getHeight(), null);
 	
 	}
 
@@ -133,7 +128,6 @@ public class Java2DGraphicsComponent implements GraphicsComponent{
 		graphics.dispose();
 		strat.show();
 		
-		j2dr.clear();
 		
 	}
 

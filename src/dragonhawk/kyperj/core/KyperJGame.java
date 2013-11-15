@@ -17,7 +17,11 @@ public abstract class KyperJGame implements Runnable{
 	/*The "mode" our environment is in currently*/
 	private int mode = 0;
 	/*the amount of updates per second we want our game to run*/
-	//private int UPDATES_PER_SECOND = 30;
+	private int UPDATES_PER_SECOND = 60;
+	/*last time we made an update*/
+	private long lastUpdate;
+	private int rUPS = 0;
+	private int rFPS = 0;
 	/*The settings for the display that is going to be made*/
 	private DisplaySettings settings;
 	
@@ -79,17 +83,36 @@ public abstract class KyperJGame implements Runnable{
 		}
 		//retrieve the graphics component of our current game display
 		GraphicsComponent g = gameDisplay.getGraphicsComponent();
+		final double tbu = 1000000000L/UPDATES_PER_SECOND;
+	    int updates = 0;
+	    int fps = 0;
+	    long lastcrackupdate = System.nanoTime();
+		lastUpdate = System.nanoTime();
 		
 		while(running){
 			
 			//UPDATE THE GAME
-			update(0);
+			while(System.nanoTime()-lastUpdate>tbu){
+				int delta = (int) ((System.nanoTime() - lastUpdate)/1000000L);
+				update(delta);
+				lastUpdate+=tbu;
+				updates++;
+				
+			}
+			if(System.nanoTime()-lastcrackupdate > 1000000000L){
+				rUPS = updates;
+				rFPS = fps;
+				fps=0;
+				updates = 0;
+				lastcrackupdate = System.nanoTime();
+				System.out.println("updatesPerSecond:"+getUPS()+"  fps:"+rFPS);
+			}	
 			
 			//RENDER THE GAME
 			g.clear();
 			render(g);
 			g.show();
-			
+			fps++;
 			//UPDATE THE GAME DISPLAY
 			gameDisplay.updateDisplay();
 		}
@@ -97,6 +120,10 @@ public abstract class KyperJGame implements Runnable{
 		//CLEAN UP GAME ASSETS
 		cleanup();
 		
+	}
+	
+	public int getUPS(){
+		return rUPS;
 	}
 	
 	/**

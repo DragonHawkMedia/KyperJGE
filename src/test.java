@@ -9,10 +9,10 @@ public class test extends KyperJGame{
 
 	public void initialize() {
 		setMode(JAVA2D);
-		DisplaySettings settings = new DisplaySettings(new Resolution(40,4,3,10f));
+		DisplaySettings settings = new DisplaySettings(new Resolution(1024,4,3,.5f));
 		settings.setTripleBuffer(false);
 		settings.setResize(false);
-		settings.setSync(30);
+		settings.setSync(80);
 		settings.setTitle("Priscilla has no GAME");
 		setDisplaySettings(settings);
 		
@@ -21,6 +21,8 @@ public class test extends KyperJGame{
 	@Override
 	public void render(GraphicsComponent g) {
 		
+		g.setColor(java.awt.Color.pink);
+		g.fillRect(0, 0, 20, 20);
 	}
 
 	@Override
