@@ -5,11 +5,15 @@ import dragonhawk.kyperj.core.KyperJGame;
 import dragonhawk.kyperj.core.display.DisplaySettings;
 import dragonhawk.kyperj.core.display.Resolution;
 import dragonhawk.kyperj.core.graphics.GraphicsComponent;
+import dragonhawk.kyperj.core.state.GameStateManager;
 
 
 public class test extends KyperJGame{
 
+	GameStateManager gsm;
+	
 	public void initialize() {
+		gsm = new GameStateManager();
 		setMode(JAVA2D);
 		DisplaySettings settings = new DisplaySettings(new Resolution(300,4,3,2f));
 		settings.setTripleBuffer(false);
@@ -24,16 +28,12 @@ public class test extends KyperJGame{
 	@Override
 	public void render(GraphicsComponent g) {
 		
-		g.setColor(java.awt.Color.red);
-		g.drawRect(20, 30, 20, 20);
-		g.fillRect(0, 0, 10, 10);
-		g.setColor(java.awt.Color.blue);
-		g.drawLine(new Point(0, 0), new Point(100,100));
+		gsm.render(g);
 	}
 
 	@Override
 	public void update(int delta) {
-		
+		gsm.update(delta);
 	}
 	
 	public static void main(String args[]){

@@ -13,7 +13,7 @@ public class Java2DResourceLoader implements GameResourceLoader{
 	
 	private int current_load_index = 0;
 	
-	private boolean loading = false;
+	private boolean done = false;
 	
 	public Java2DResourceLoader(){
 		resources = Collections.synchronizedList(new ArrayList<GameResource>());
@@ -28,7 +28,7 @@ public class Java2DResourceLoader implements GameResourceLoader{
 
 	@Override
 	public GameSound loadGameSound(String file, boolean inproject) {
-		GameSound sound = null;
+		GameSound sound =  null;
 		
 		return sound;
 	}
@@ -44,15 +44,22 @@ public class Java2DResourceLoader implements GameResourceLoader{
 			
 			@Override
 			public void run() {
-				//loop through resource list and load resoruces individually
+				//loop through resource list and load resources individually
+				synchronized(resources){
+					
+					while(current_load_index<resources.size()-1){
+						resources.get(current_load_index).load();
+					}
+					
+				}
 				
 			}
 		}).start();
 	}
 
 	@Override
-	public boolean isLoading() {
-		return loading;
+	public boolean isDoneLoading() {
+		return done;
 	}
 
 	@Override
@@ -64,5 +71,11 @@ public class Java2DResourceLoader implements GameResourceLoader{
 	public void setResources(ArrayList<GameResource> resources) {
 		this.resources = resources;
 	}
+
+	@Override
+	public double getPercentageDone() {
+		return current_load_index/resources.size()*100;
+	}
+
 
 }

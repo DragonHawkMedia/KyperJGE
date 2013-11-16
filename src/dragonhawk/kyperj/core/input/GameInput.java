@@ -15,7 +15,7 @@ public interface GameInput {
 	public boolean isKeyDown(int Key);
 	
 	/**
-	 * check to see if given mousebutton is down
+	 * check to see if given mouse button is down
 	 * @param MouseButton button in check
 	 * @return - if the mouse button is down
 	 */

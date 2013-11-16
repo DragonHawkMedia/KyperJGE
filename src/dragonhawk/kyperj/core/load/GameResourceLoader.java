@@ -37,10 +37,10 @@ public interface GameResourceLoader {
 	public void load();
 	
 	/**
-	 * if assets are loading
+	 * if assets are done loading
 	 * @return if assets are loading
 	 */
-	public boolean isLoading();
+	public boolean isDoneLoading();
 	
 	/**
 	 * get all the resources to be loaded
@@ -53,5 +53,11 @@ public interface GameResourceLoader {
 	 * @param resources
 	 */
 	public void setResources(ArrayList<GameResource> resources);
+	
+	/**
+	 * get the loading percentage 
+	 * @return files that have been loaded %
+	 */
+	public double getPercentageDone();
 	
 }
