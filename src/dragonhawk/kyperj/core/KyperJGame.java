@@ -4,6 +4,7 @@ import dragonhawk.kyperj.core.display.DisplaySettings;
 import dragonhawk.kyperj.core.display.GameDisplay;
 import dragonhawk.kyperj.core.display.Java2DGameDisplay;
 import dragonhawk.kyperj.core.graphics.GraphicsComponent;
+import dragonhawk.kyperj.core.load.GameResourceLoader;
 
 public abstract class KyperJGame implements Runnable{
 	/* the different type of supported environments */
@@ -24,6 +25,8 @@ public abstract class KyperJGame implements Runnable{
 	private int rFPS = 0;
 	/*The settings for the display that is going to be made*/
 	private DisplaySettings settings;
+	/*this will be used to load all our game resources*/
+	private GameResourceLoader loader;
 	
 	/**
 	 * Set our running boolean to true and then 
@@ -66,6 +69,10 @@ public abstract class KyperJGame implements Runnable{
 	 */
 	public GameDisplay getGameDisplay(){
 		return gameDisplay;
+	}
+	
+	public GameResourceLoader getLoader(){
+		return loader;
 	}
 	
 	/**
@@ -131,8 +138,21 @@ public abstract class KyperJGame implements Runnable{
 		
 	}
 	
+	/**
+	 * get the amount of updates occurring per 
+	 * second
+	 * @return updates per second
+	 */
 	public int getUPS(){
 		return rUPS;
+	}
+	
+	/**
+	 * get the amount of frames being drawn per second
+	 * @return frames per second
+	 */
+	public int getFPS(){
+		return rFPS;
 	}
 	
 	/**

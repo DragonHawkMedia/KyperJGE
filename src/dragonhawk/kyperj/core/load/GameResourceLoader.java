@@ -1,4 +1,6 @@
-package dragonhawk.kyperj.core;
+package dragonhawk.kyperj.core.load;
+
+import java.util.ArrayList;
 
 import dragonhawk.kyperj.core.graphics.GameImage;
 import dragonhawk.kyperj.core.sound.GameSound;
@@ -38,5 +40,17 @@ public interface GameResourceLoader {
 	 * @return if assets are loading
 	 */
 	public boolean isLoading();
+	
+	/**
+	 * get all the resources to be loaded
+	 * @return an arraylist containing all resources to be loaded
+	 */
+	public ArrayList<GameResource> getResources();
+	
+	/**
+	 * set the resources to be loaded via an arraylist
+	 * @param resources
+	 */
+	public void setResources(ArrayList<GameResource> resources);
 	
 }
