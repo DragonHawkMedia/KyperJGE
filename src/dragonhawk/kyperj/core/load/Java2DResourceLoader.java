@@ -23,7 +23,7 @@ public class Java2DResourceLoader implements GameResourceLoader{
 	@Override
 	public GameImage loadGameImage(String file, boolean inproject) {
 		GameImage image = new Java2DGameImage(file, resources.size(), inproject);
-		
+		resources.add((Java2DGameImage)image);
 		return image;
 	}
 
@@ -48,8 +48,10 @@ public class Java2DResourceLoader implements GameResourceLoader{
 				//loop through resource list and load resources individually
 				synchronized(resources){
 					
-					while(current_load_index<resources.size()-1){
+					while(current_load_index<resources.size()){
 						resources.get(current_load_index).load();
+						current_load_index++;
+						System.out.println("locading");
 					}
 					done = true;
 				}
@@ -64,8 +66,8 @@ public class Java2DResourceLoader implements GameResourceLoader{
 	}
 
 	@Override
-	public void setResources(ArrayList<GameResource> resources) {
-		this.resources = resources;
+	public void setResources(List<GameResource> resources) {
+		this.resources = Collections.synchronizedList(resources);
 	}
 
 	@Override

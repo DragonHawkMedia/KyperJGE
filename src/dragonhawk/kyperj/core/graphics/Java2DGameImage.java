@@ -54,6 +54,8 @@ public class Java2DGameImage implements GameImage, GameResource{
 		else
 			image = KyperSimpleUtils.loadExternalImage(ref);
 		
+		width = image.getWidth();
+		height = image.getHeight();
 		loaded = true;		
 	}
 	

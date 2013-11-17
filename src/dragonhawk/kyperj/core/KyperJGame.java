@@ -1,10 +1,15 @@
 package dragonhawk.kyperj.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dragonhawk.kyperj.core.display.DisplaySettings;
 import dragonhawk.kyperj.core.display.GameDisplay;
 import dragonhawk.kyperj.core.display.Java2DGameDisplay;
 import dragonhawk.kyperj.core.graphics.GraphicsComponent;
+import dragonhawk.kyperj.core.load.GameResource;
 import dragonhawk.kyperj.core.load.GameResourceLoader;
+import dragonhawk.kyperj.core.load.Java2DResourceLoader;
 
 public abstract class KyperJGame implements Runnable{
 	/* the different type of supported environments */
@@ -81,6 +86,7 @@ public abstract class KyperJGame implements Runnable{
 	public void run(){
 		//create a new display with the default mode
 		gameDisplay = new Java2DGameDisplay(this);
+		loader = new Java2DResourceLoader();
 		//game initializes all things in abstract method
 		initialize();
 		//give the display the settings we gave it
@@ -104,7 +110,7 @@ public abstract class KyperJGame implements Runnable{
 	    int fps = 0;
 	    long lastcrackupdate = System.nanoTime();
 		lastUpdate = System.nanoTime();
-		
+		loader.load();
 		while(running){
 			
 			//UPDATE THE GAME
@@ -125,10 +131,13 @@ public abstract class KyperJGame implements Runnable{
 			}	
 			
 			//RENDER THE GAME
-			g.clear();
-			render(g);
-			g.show();
-			fps++;
+			if(loader.isDoneLoading()){
+				g.clear();
+				render(g);
+				g.show();
+				fps++;
+			}
+				
 			//UPDATE THE GAME DISPLAY
 			gameDisplay.updateDisplay();
 		}
@@ -173,6 +182,9 @@ public abstract class KyperJGame implements Runnable{
 		switch(mode){
 		case JAVA2D: gameDisplay = new Java2DGameDisplay(this);
 					 gameDisplay.setDisplaySettings(settings);
+					 List<GameResource> list = loader.getResources();
+					 loader = new Java2DResourceLoader();
+					 loader.setResources(list);
 			break;
 		case LWJGL: 
 			break;

@@ -23,6 +23,7 @@ public class SplashState implements GameState{
 		g.fillRect(0, 0, 10, 10);
 		g.setColor(java.awt.Color.blue);
 		g.drawLine(new Point(0, 0), new Point(100,100));
+		
 	}
 
 }

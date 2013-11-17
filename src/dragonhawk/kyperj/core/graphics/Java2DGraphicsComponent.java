@@ -61,7 +61,9 @@ public class Java2DGraphicsComponent implements GraphicsComponent{
 
 	@Override
 	public void draw(GameImage image, int x, int y) {
-		//TODO:DisplaySettings s = display.getDisplaySettings();
+		DisplaySettings s = display.getDisplaySettings();
+		graphics.drawImage(((Java2DGameImage)image).getImage(),(int)(x*s.getScale()),(int) (y*s.getScale()),
+				 (int)(image.getWidth()*s.getScale()), (int)(image.getHeight()*s.getScale()),null);
 	}
 
 	@Override

@@ -52,7 +52,7 @@ public interface GameResourceLoader {
 	 * set the resources to be loaded via an arraylist
 	 * @param resources
 	 */
-	public void setResources(ArrayList<GameResource> resources);
+	public void setResources(List<GameResource> resources);
 	
 	/**
 	 * get the loading percentage 
