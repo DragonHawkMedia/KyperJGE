@@ -26,7 +26,7 @@ public abstract class KyperJGame implements Runnable{
 	/*The settings for the display that is going to be made*/
 	private DisplaySettings settings;
 	/*this will be used to load all our game resources*/
-	private GameResourceLoader loader;
+	private static GameResourceLoader loader;
 	
 	/**
 	 * Set our running boolean to true and then 
@@ -44,6 +44,10 @@ public abstract class KyperJGame implements Runnable{
 	 */
 	public void setMode(int mode){
 		this.mode = mode;
+	}
+	
+	public static GameResourceLoader getLoader(){
+		return loader;
 	}
 	
 	/**
@@ -69,10 +73,6 @@ public abstract class KyperJGame implements Runnable{
 	 */
 	public GameDisplay getGameDisplay(){
 		return gameDisplay;
-	}
-	
-	public GameResourceLoader getLoader(){
-		return loader;
 	}
 	
 	/**

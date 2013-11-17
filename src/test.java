@@ -1,6 +1,4 @@
 
-import java.awt.Point;
-
 import dragonhawk.kyperj.core.KyperJGame;
 import dragonhawk.kyperj.core.display.DisplaySettings;
 import dragonhawk.kyperj.core.display.Resolution;
@@ -14,15 +12,6 @@ public class test extends KyperJGame{
 	
 	public void initialize() {
 		gsm = new GameStateManager();
-		setMode(JAVA2D);
-		DisplaySettings settings = new DisplaySettings(new Resolution(300,4,3,2f));
-		settings.setTripleBuffer(false);
-		settings.setResize(false);
-		settings.setSync(80);
-		settings.setTitle("Priscilla has no GAME");
-		setDisplaySettings(settings);
-		setUPS(45);
-		
 	}
 
 	@Override
@@ -38,6 +27,14 @@ public class test extends KyperJGame{
 	
 	public static void main(String args[]){
 		test t = new test();
+		t.setMode(JAVA2D);
+		DisplaySettings settings = new DisplaySettings(new Resolution(300,4,3,1f));
+		settings.setTripleBuffer(false);
+		settings.setResize(false);
+		settings.setSync(80);
+		settings.setTitle("jonathanCREW");
+		t.setDisplaySettings(settings);
+		t.setUPS(45);
 		t.start();
 	}
 	

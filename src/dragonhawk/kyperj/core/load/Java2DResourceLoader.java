@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import dragonhawk.kyperj.core.graphics.GameImage;
+import dragonhawk.kyperj.core.graphics.Java2DGameImage;
 import dragonhawk.kyperj.core.sound.GameSound;
 
 public class Java2DResourceLoader implements GameResourceLoader{
@@ -21,7 +22,7 @@ public class Java2DResourceLoader implements GameResourceLoader{
 
 	@Override
 	public GameImage loadGameImage(String file, boolean inproject) {
-		GameImage image = null;
+		GameImage image = new Java2DGameImage(file, resources.size(), inproject);
 		
 		return image;
 	}
@@ -50,16 +51,11 @@ public class Java2DResourceLoader implements GameResourceLoader{
 					while(current_load_index<resources.size()-1){
 						resources.get(current_load_index).load();
 					}
-					
+					done = true;
 				}
 				
 			}
 		}).start();
-	}
-
-	@Override
-	public boolean isDoneLoading() {
-		return done;
 	}
 
 	@Override
@@ -75,6 +71,11 @@ public class Java2DResourceLoader implements GameResourceLoader{
 	@Override
 	public double getPercentageDone() {
 		return current_load_index/resources.size()*100;
+	}
+
+	@Override
+	public boolean isDoneLoading() {
+		return  done;
 	}
 
 

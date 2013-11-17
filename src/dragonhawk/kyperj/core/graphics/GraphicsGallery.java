@@ -1,5 +1,6 @@
 package dragonhawk.kyperj.core.graphics;
 
-public class GraphicsGallery {
+public interface GraphicsGallery {
 
+	public GameImage getGameImageByID(int id);
 }

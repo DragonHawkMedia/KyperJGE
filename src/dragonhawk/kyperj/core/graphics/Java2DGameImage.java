@@ -1,30 +1,64 @@
 package dragonhawk.kyperj.core.graphics;
 
+import java.awt.image.BufferedImage;
 
-public class Java2DGameImage implements GameImage{
+import dragonhawk.kyperj.core.KyperSimpleUtils;
+import dragonhawk.kyperj.core.load.GameResource;
+
+
+public class Java2DGameImage implements GameImage, GameResource{
+	
+	private BufferedImage image;
+	private boolean loaded = false;
+	private String ref = "";
+	private int id = 0;
+	private int width , height;
+	private boolean xjct = false;
+	
+	public Java2DGameImage(String ref, int id,boolean xjct){
+		image = null;
+		this.ref = ref;
+		this.id = id;
+		this.xjct = xjct;
+	}
 	
 	@Override
 	public int getWidth() {
-		// TODO Auto-generated method stub
-		return 0;
+		return width;
 	}
 
 	@Override
 	public int getHeight() {
-		// TODO Auto-generated method stub
-		return 0;
+		return height;
 	}
 
 	@Override
 	public String getRef() {
-		// TODO Auto-generated method stub
-		return null;
+		return ref;
 	}
 
 	@Override
 	public int getID() {
-		// TODO Auto-generated method stub
-		return 0;
+		return id;
+	}
+
+	@Override
+	public boolean isloaded() {
+		return loaded;
+	}
+
+	@Override
+	public void load() {
+		if(xjct)
+			image = KyperSimpleUtils.loadImageFromProject(ref);
+		else
+			image = KyperSimpleUtils.loadExternalImage(ref);
+		
+		loaded = true;		
+	}
+	
+	public BufferedImage getImage(){
+		return image;
 	}
 
 }
