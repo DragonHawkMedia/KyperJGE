@@ -7,6 +7,8 @@ import dragonhawk.kyperj.core.display.DisplaySettings;
 import dragonhawk.kyperj.core.display.GameDisplay;
 import dragonhawk.kyperj.core.display.Java2DGameDisplay;
 import dragonhawk.kyperj.core.graphics.GraphicsComponent;
+import dragonhawk.kyperj.core.input.GameInput;
+import dragonhawk.kyperj.core.input.Java2DGameInput;
 import dragonhawk.kyperj.core.load.GameResource;
 import dragonhawk.kyperj.core.load.GameResourceLoader;
 import dragonhawk.kyperj.core.load.Java2DResourceLoader;
@@ -32,6 +34,8 @@ public abstract class KyperJGame implements Runnable{
 	private DisplaySettings settings;
 	/*this will be used to load all our game resources*/
 	private static GameResourceLoader loader;
+	/*game input handler*/
+	private static GameInput input;
 	
 	/**
 	 * Set our running boolean to true and then 
@@ -54,6 +58,11 @@ public abstract class KyperJGame implements Runnable{
 	public static GameResourceLoader getLoader(){
 		return loader;
 	}
+	
+	public GameInput getInput(){
+		return input;
+	}
+	
 	
 	/**
 	 * set the Display settings that our game display will use
@@ -185,6 +194,7 @@ public abstract class KyperJGame implements Runnable{
 					 List<GameResource> list = loader.getResources();
 					 loader = new Java2DResourceLoader();
 					 loader.setResources(list);
+					 input = new Java2DGameInput(this);
 			break;
 		case LWJGL: 
 			break;

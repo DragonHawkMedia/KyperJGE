@@ -15,11 +15,9 @@ public class test extends KyperJGame{
 
 	GameStateManager gsm;
 	GameImage test;
-	GameInput input;
 	float x = 100, y = 100;
 	
 	public void initialize() {
-		input = new Java2DGameInput(this);
 		gsm = new GameStateManager();
 		test = getLoader().loadGameImage("C:/Users/john/Desktop/pokemansmmo/100.gif", false);
 	}
@@ -35,17 +33,19 @@ public class test extends KyperJGame{
 	@Override
 	public void update(int delta) {
 		gsm.update(delta);
-		float speed = (delta*.1f);
-		if(input.isKeyDown(KeyEvent.VK_W)){
+		
+		System.out.println("XonScreen:"+getInput().getMouseX()+" YonScreen:"+getInput().getMouseY());
+		float speed = (delta*(getUPS()*2))/1000;
+		if(getInput().isKeyDown(KeyEvent.VK_W)){
 			y-= speed;
 		}
-		if(input.isKeyDown(KeyEvent.VK_S)){
+		if(getInput().isKeyDown(KeyEvent.VK_S)){
 			y+= speed;
 		}
-		if(input.isKeyDown(KeyEvent.VK_A)){
+		if(getInput().isKeyDown(KeyEvent.VK_A)){
 			x-= speed;
 		}
-		if(input.isKeyDown(KeyEvent.VK_D)){
+		if(getInput().isKeyDown(KeyEvent.VK_D)){
 			x+= speed;
 		}
 	}
@@ -53,13 +53,13 @@ public class test extends KyperJGame{
 	public static void main(String args[]){
 		test t = new test();
 		t.setMode(JAVA2D);
-		DisplaySettings settings = new DisplaySettings(new Resolution(300,4,3,2.5f));
+		DisplaySettings settings = new DisplaySettings(new Resolution(400,16,9,2f));
 		settings.setTripleBuffer(false);
 		settings.setResize(false);
 		settings.setSync(80);
 		settings.setTitle("jonathanCREW");
 		t.setDisplaySettings(settings);
-		t.setUPS(30);
+		t.setUPS(40);
 		t.start();
 		
 	}
