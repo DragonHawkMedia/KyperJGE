@@ -1,6 +1,8 @@
 package dragonhawk.kyperj.core.input;
 
 public interface GameInput {
+	public static final int LEFT_MOUSE_BUTTON = 1;
+	public static final int RIGHT_MOUSE_BUTTON = 3;
 	
 	/**
 	 * update all game input/poll keys
@@ -25,12 +27,12 @@ public interface GameInput {
 	 * get the mouse pixel  x coordinate on the screen
 	 * @return get mouse x
 	 */
-	public int getMouseX();
+	public double getMouseX();
 	
 	/**
 	 * get the mouse pixel y coordinate
 	 * @return get mouse y
 	 */
-	public int getMouseY();
+	public double getMouseY();
 
 }
