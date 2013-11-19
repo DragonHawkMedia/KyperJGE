@@ -51,12 +51,16 @@ public class test extends KyperJGame{
 	}
 	
 	public static void main(String args[]){
+		if(System.getProperty("os.name").startsWith("Win"))
+            System.setProperty("sun.java2d.d3d","true");
+		else
+            System.setProperty("sun.java2d.opengl", "true");
 		test t = new test();
 		t.setMode(JAVA2D);
 		DisplaySettings settings = new DisplaySettings(new Resolution(400,16,9,2f));
 		settings.setTripleBuffer(false);
 		settings.setResize(false);
-		settings.setSync(80);
+		//settings.setSync(80);
 		settings.setTitle("jonathanCREW");
 		t.setDisplaySettings(settings);
 		t.setUPS(40);
