@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 import dragonhawk.kyperj.core.KyperJGame;
@@ -21,6 +22,7 @@ public class test extends KyperJGame{
 		gsm = new GameStateManager();
 		test = getLoader().loadGameImage("C:/Users/john/Desktop/pokemansmmo/100.gif", false);
 		sheet = getLoader().loadGameSheet("C:/Users/john/Desktop/KyperJ/resources/senorviro.png", false, 16);
+		sheet.removeColor(new Color(0xff00ff));
 	}
 
 	@Override
@@ -30,14 +32,16 @@ public class test extends KyperJGame{
 		gsm.render(g);
 		g.draw(test, (int)x, (int)y);
 		g.draw(sheet.imageAt(0, 0), (int)x, (int)y);
+		g.draw(sheet.imageAt(3, 0), (int)x+16, (int)y);
+		
+		
+		g.setClearColor(new Color(0x97FFFF));
 	}
 
 	@Override
 	public void update(int delta) {
 		gsm.update(delta);
 		
-		
-		System.out.println("XonScreen:"+getInput().getMouseX()+" YonScreen:"+getInput().getMouseY());
 		float speed = (delta*(getUPS()*2))/1000;
 		if(getInput().isKeyDown(KeyEvent.VK_W)){
 			y-= speed;
@@ -63,7 +67,7 @@ public class test extends KyperJGame{
 		DisplaySettings settings = new DisplaySettings(new Resolution(300,16,9,3f));
 		settings.setTripleBuffer(false);
 		settings.setResize(false);
-		//settings.setSync(80);
+		settings.setSync(60);
 		settings.setTitle("jonathanCREW");
 		t.setDisplaySettings(settings);
 		t.setUPS(40);

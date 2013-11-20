@@ -1,6 +1,8 @@
 package dragonhawk.kyperj.core.graphics;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import dragonhawk.kyperj.core.KyperSimpleUtils;
@@ -11,6 +13,7 @@ public class Java2DGameSheet implements GameSheet, GameResource{
 	private int tile_square_size = 0;
 	private boolean loaded = false;
 	private BufferedImage sheet;
+	private ArrayList<java.awt.Color> colors;
 	private int width;
 	private int height;
 	private String ref;
@@ -20,6 +23,7 @@ public class Java2DGameSheet implements GameSheet, GameResource{
 	private HashMap<Integer,Java2DGameImage> subimages;
 
 	public Java2DGameSheet(String ref,boolean xjct,int id,int size){
+		this.colors = new ArrayList<java.awt.Color>();
 		this.subimages = new HashMap<Integer ,Java2DGameImage>();
 		this.ref = ref;
 		this.xjct = xjct;
@@ -40,6 +44,15 @@ public class Java2DGameSheet implements GameSheet, GameResource{
 				sheet = KyperSimpleUtils.loadImageFromProject(ref);
 			else
 				sheet = KyperSimpleUtils.loadExternalImage(ref);
+			//remove all colors specified
+			{
+				if(!colors.isEmpty()){
+					for (int i = 0; i < colors.size(); i++) {
+						sheet = KyperSimpleUtils.makeColorTransparent(sheet, colors.get(i));
+					}
+				}
+				sheet = KyperSimpleUtils.toCompatibleImage(sheet); 
+			}
 			
 			width = sheet.getWidth();
 			height = sheet.getHeight();
@@ -49,7 +62,7 @@ public class Java2DGameSheet implements GameSheet, GameResource{
 	@Override
 	public GameImage imageAt(int x, int y) {
 		if(!subimages.containsKey(x+(y*(sheet.getWidth()/tile_square_size)))){
-			Java2DGameImage sub = new Java2DGameImage(sheet.getSubimage(x, y, tile_square_size, tile_square_size),ref, subimages.size());
+			Java2DGameImage sub = new Java2DGameImage(sheet.getSubimage(x*tile_square_size, y*tile_square_size, tile_square_size, tile_square_size),ref, subimages.size());
 			subimages.put(x+(y*(sheet.getWidth()/tile_square_size)), sub);
 		}	
 		return subimages.get(x+(y*(sheet.getWidth()/tile_square_size)));
@@ -85,6 +98,18 @@ public class Java2DGameSheet implements GameSheet, GameResource{
 	@Override
 	public int getID() {
 		return id;
+	}
+
+	@Override
+	public void removeColor(Color color) {
+		colors.add(color);
+	}
+
+	@Override
+	public void removeColors(Color colors[]) {
+		for (int i = 0; i < colors.length; i++) {
+			this.colors.add(colors[i]);
+		}
 	}
 
 }

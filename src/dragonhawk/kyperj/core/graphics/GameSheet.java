@@ -43,5 +43,9 @@ public interface GameSheet {
 	public String getRef();
 	
 	public int getID();
+	
+	public void removeColor(java.awt.Color color);
+	
+	public void removeColors(java.awt.Color colors[]);
 
 }
