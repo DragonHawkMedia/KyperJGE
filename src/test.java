@@ -5,9 +5,8 @@ import dragonhawk.kyperj.core.KyperJGame;
 import dragonhawk.kyperj.core.display.DisplaySettings;
 import dragonhawk.kyperj.core.display.Resolution;
 import dragonhawk.kyperj.core.graphics.GameImage;
+import dragonhawk.kyperj.core.graphics.GameSheet;
 import dragonhawk.kyperj.core.graphics.GraphicsComponent;
-import dragonhawk.kyperj.core.input.GameInput;
-import dragonhawk.kyperj.core.input.Java2DGameInput;
 import dragonhawk.kyperj.core.state.GameStateManager;
 
 
@@ -15,11 +14,13 @@ public class test extends KyperJGame{
 
 	GameStateManager gsm;
 	GameImage test;
+	GameSheet sheet;
 	float x = 100, y = 100;
 	
 	public void initialize() {
 		gsm = new GameStateManager();
 		test = getLoader().loadGameImage("C:/Users/john/Desktop/pokemansmmo/100.gif", false);
+		sheet = getLoader().loadGameSheet("C:/Users/john/Desktop/KyperJ/resources/senorviro.png", false, 16);
 	}
 
 	@Override
@@ -28,11 +29,13 @@ public class test extends KyperJGame{
 		g.fillRect(30, 30, 20, 20);
 		gsm.render(g);
 		g.draw(test, (int)x, (int)y);
+		g.draw(sheet.imageAt(0, 0), (int)x, (int)y);
 	}
 
 	@Override
 	public void update(int delta) {
 		gsm.update(delta);
+		
 		
 		System.out.println("XonScreen:"+getInput().getMouseX()+" YonScreen:"+getInput().getMouseY());
 		float speed = (delta*(getUPS()*2))/1000;
@@ -57,7 +60,7 @@ public class test extends KyperJGame{
             System.setProperty("sun.java2d.opengl", "true");
 		test t = new test();
 		t.setMode(JAVA2D);
-		DisplaySettings settings = new DisplaySettings(new Resolution(400,16,9,2f));
+		DisplaySettings settings = new DisplaySettings(new Resolution(300,16,9,3f));
 		settings.setTripleBuffer(false);
 		settings.setResize(false);
 		//settings.setSync(80);

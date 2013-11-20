@@ -39,5 +39,9 @@ public interface GameSheet {
 	 * @param size
 	 */
 	public void setSize(int size);
+	
+	public String getRef();
+	
+	public int getID();
 
 }

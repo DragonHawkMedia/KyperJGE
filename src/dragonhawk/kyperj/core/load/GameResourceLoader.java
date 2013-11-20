@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dragonhawk.kyperj.core.graphics.GameImage;
+import dragonhawk.kyperj.core.graphics.GameSheet;
 import dragonhawk.kyperj.core.sound.GameSound;
 
 public interface GameResourceLoader {
@@ -25,6 +26,8 @@ public interface GameResourceLoader {
 	 * @return - the GameSound to be used 
 	 */
 	public GameSound loadGameSound(String file, boolean inproject);
+	
+	public GameSheet loadGameSheet(String file, boolean inproject, int segment_size);
 	
 	/**
 	 * reload all assets

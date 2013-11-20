@@ -5,7 +5,9 @@ import java.util.Collections;
 import java.util.List;
 
 import dragonhawk.kyperj.core.graphics.GameImage;
+import dragonhawk.kyperj.core.graphics.GameSheet;
 import dragonhawk.kyperj.core.graphics.Java2DGameImage;
+import dragonhawk.kyperj.core.graphics.Java2DGameSheet;
 import dragonhawk.kyperj.core.sound.GameSound;
 
 public class Java2DResourceLoader implements GameResourceLoader{
@@ -32,6 +34,12 @@ public class Java2DResourceLoader implements GameResourceLoader{
 		GameSound sound =  null;
 		
 		return sound;
+	}
+	
+	public GameSheet loadGameSheet(String file, boolean inproject, int segment_size){
+		GameSheet sheet = new Java2DGameSheet(file, inproject, resources.size() ,segment_size);
+		resources.add((Java2DGameSheet)sheet);
+		return sheet;
 	}
 
 	@Override

@@ -72,5 +72,10 @@ public interface Animation {
 	 * @param repeat
 	 */
 	public void setRepeat(boolean repeat);
+	
+	/**
+	 * force the animation to end
+	 */
+	public void forceEnd();
 
 }
