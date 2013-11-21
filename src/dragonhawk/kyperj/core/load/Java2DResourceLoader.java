@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import dragonhawk.kyperj.core.KyperJGame;
 import dragonhawk.kyperj.core.graphics.GameImage;
 import dragonhawk.kyperj.core.graphics.GameSheet;
 import dragonhawk.kyperj.core.graphics.Java2DGameImage;
@@ -18,6 +19,7 @@ public class Java2DResourceLoader implements GameResourceLoader{
 	
 	private boolean done = false;
 	
+	
 	public Java2DResourceLoader(){
 		resources = Collections.synchronizedList(new ArrayList<GameResource>());
 	}
@@ -26,6 +28,7 @@ public class Java2DResourceLoader implements GameResourceLoader{
 	public GameImage loadGameImage(String file, boolean inproject) {
 		GameImage image = new Java2DGameImage(file, resources.size(), inproject);
 		resources.add((Java2DGameImage)image);
+		KyperJGame.getGallery().addGameImage(image);;
 		return image;
 	}
 
@@ -39,6 +42,7 @@ public class Java2DResourceLoader implements GameResourceLoader{
 	public GameSheet loadGameSheet(String file, boolean inproject, int segment_size){
 		GameSheet sheet = new Java2DGameSheet(file, inproject, resources.size() ,segment_size);
 		resources.add((Java2DGameSheet)sheet);
+		KyperJGame.getGallery().addGameSheet(sheet);
 		return sheet;
 	}
 

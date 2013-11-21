@@ -1,12 +1,13 @@
 package dragonhawk.kyperj.core;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import dragonhawk.kyperj.core.display.DisplaySettings;
 import dragonhawk.kyperj.core.display.GameDisplay;
 import dragonhawk.kyperj.core.display.Java2DGameDisplay;
 import dragonhawk.kyperj.core.graphics.GraphicsComponent;
+import dragonhawk.kyperj.core.graphics.GraphicsGallery;
+import dragonhawk.kyperj.core.graphics.SimpleGraphicsGallery;
 import dragonhawk.kyperj.core.input.GameInput;
 import dragonhawk.kyperj.core.input.Java2DGameInput;
 import dragonhawk.kyperj.core.load.GameResource;
@@ -36,6 +37,8 @@ public abstract class KyperJGame implements Runnable{
 	private static GameResourceLoader loader;
 	/*game input handler*/
 	private static GameInput input;
+	/*our image gallery*/
+	private static GraphicsGallery gallery = new SimpleGraphicsGallery();
 	
 	/**
 	 * Set our running boolean to true and then 
@@ -57,6 +60,10 @@ public abstract class KyperJGame implements Runnable{
 	
 	public static GameResourceLoader getLoader(){
 		return loader;
+	}
+	
+	public static GraphicsGallery getGallery(){
+		return gallery;
 	}
 	
 	public GameInput getInput(){
@@ -195,7 +202,7 @@ public abstract class KyperJGame implements Runnable{
 					 loader = new Java2DResourceLoader();
 					 loader.setResources(list);
 					 input = new Java2DGameInput(this);
-			break;
+;			break;
 		case LWJGL: 
 			break;
 			default: throw new Exception("invalid environment mode set");

@@ -27,6 +27,13 @@ public interface GameResourceLoader {
 	 */
 	public GameSound loadGameSound(String file, boolean inproject);
 	
+	/**
+	 * load a game sheet(tilesheet) with 
+	 * @param file
+	 * @param inproject
+	 * @param segment_size
+	 * @return
+	 */
 	public GameSheet loadGameSheet(String file, boolean inproject, int segment_size);
 	
 	/**

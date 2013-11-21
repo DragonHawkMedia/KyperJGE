@@ -98,6 +98,10 @@ public class KyperSimpleUtils {
     	g.dispose();
     	return bufim;
     }
+    
+    public static int milliDiffFromNanos(long now ,long last){
+    	return (int) ((now-last)/1000000L);
+    }
 
 	/**
 	 * get the closest power of 2
