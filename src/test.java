@@ -26,7 +26,17 @@ public class test extends KyperJGame{
 		sheet = getLoader().loadGameSheet("C:/Users/john/Desktop/KyperJ/resources/senorviro.png", false, 16);
 		sheet.removeColor(new Color(0xff00ff));
 		
-		
+	}
+	
+	
+	@Override
+	public void safeInit() {
+		anim = new KyperAnimation();
+		anim.addFrame(sheet.imageAt(0, 3));
+		anim.addFrame(sheet.imageAt(1, 3));
+		anim.addFrame(sheet.imageAt(2, 3));
+		anim.setFrameDuration(140);
+		anim.setRepeat(true);
 	}
 
 	@Override
@@ -37,15 +47,6 @@ public class test extends KyperJGame{
 		g.draw(test, (int)x, (int)y);
 		g.draw(sheet.imageAt(0, 0), (int)x, (int)y);
 		g.draw(sheet.imageAt(0, 2), (int)x+16, (int)y);
-		if(anim == null){
-			anim = new KyperAnimation();
-			anim.addFrame(sheet.imageAt(0, 3));
-			anim.addFrame(sheet.imageAt(1, 3));
-			anim.addFrame(sheet.imageAt(2, 3));
-			anim.setFrameDuration(140);
-			anim.setRepeat(true);
-		}
-		
 		g.draw(anim.getCurrentFrame(), (int)x, 20);
 		
 		
@@ -72,10 +73,7 @@ public class test extends KyperJGame{
 	}
 	
 	public static void main(String args[]){
-		if(System.getProperty("os.name").startsWith("Win"))
-            System.setProperty("sun.java2d.d3d","true");
-		else
-            System.setProperty("sun.java2d.opengl", "true");
+		                         
 		test t = new test();
 		t.setMode(JAVA2D);
 		DisplaySettings settings = new DisplaySettings(new Resolution(300,16,9,3f));
@@ -88,6 +86,7 @@ public class test extends KyperJGame{
 		t.start();
 		
 	}
+
 	
 	
 

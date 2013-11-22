@@ -13,6 +13,7 @@ public class KyperAnimation implements Animation{
 	private boolean repeat = false;
 	private int duration = 300;
 	private long lastChange ;
+	private boolean paused = false;
 	
 	public KyperAnimation(){
 		frames = new ArrayList<GameImage>();
@@ -60,6 +61,8 @@ public class KyperAnimation implements Animation{
 			if (curr_frame == -1) {
 				curr_frame = 0;
 				lastChange = System.nanoTime();
+				if(callback!=null)
+					callback.animationStart(this);
 			}else{
 				long now = System.nanoTime();
 				if(KyperSimpleUtils.milliDiffFromNanos(now, lastChange)>= duration){
@@ -116,8 +119,31 @@ public class KyperAnimation implements Animation{
 
 	@Override
 	public void forceEnd() {
-		// TODO Auto-generated method stub
+		curr_frame = frames.size()-1;
+		repeat = false;
+		if(callback!=null)
+			callback.animationEnd(this);
 		
+	}
+
+	@Override
+	public void pause() {
+		paused = true;
+		if(callback != null)
+			callback.animationPauce(this);
+	}
+
+	@Override
+	public void resume() {
+		paused = false;
+		if(callback != null)
+			callback.animationPauce(this);
+		
+	}
+
+	@Override
+	public boolean isPaused() {
+		return paused;
 	}
 
 }

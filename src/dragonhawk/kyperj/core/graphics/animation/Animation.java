@@ -1,6 +1,8 @@
 package dragonhawk.kyperj.core.graphics.animation;
 
+import dragonhawk.kyperj.core.KyperJGame;
 import dragonhawk.kyperj.core.graphics.GameImage;
+import dragonhawk.kyperj.core.graphics.SimpleGraphicsGallery;
 
 public interface Animation {
 	
@@ -27,6 +29,12 @@ public interface Animation {
 	 * forcibly skip to the next frame
 	 */
 	public void forceNext();
+	
+	public void pause();
+	
+	public void resume();
+	
+	public boolean isPaused();
 	
 	/**
 	 * Get the current frame in the animation
@@ -77,5 +85,19 @@ public interface Animation {
 	 * force the animation to end
 	 */
 	public void forceEnd();
+	
+	public static class AnimationFrame{
+		
+		private String ref;
+		
+		public AnimationFrame(String ref){
+			this.ref = ref;
+		}
+		
+		public GameImage getImage(){
+			GameImage image = null;
+			return image;
+		}
+	}
 
 }

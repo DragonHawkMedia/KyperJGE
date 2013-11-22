@@ -88,7 +88,7 @@ public class Java2DResourceLoader implements GameResourceLoader{
 	}
 
 	@Override
-	public boolean isDoneLoading() {
+	public synchronized boolean  isDoneLoading() {
 		return  done;
 	}
 

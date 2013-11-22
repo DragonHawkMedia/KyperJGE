@@ -18,7 +18,8 @@ public abstract class KyperJGame implements Runnable{
 	/* the different type of supported environments */
 	public static final int JAVA2D = 0;
 	public static final int LWJGL = 1;
-	
+	/*boolean to check if game has done safe init*/
+	private boolean safeinit = false;
 	/*The game display that will be created based on the environment we chose*/
 	private GameDisplay gameDisplay;
 	/*boolean to check if the game is currently running*/
@@ -129,33 +130,44 @@ public abstract class KyperJGame implements Runnable{
 		loader.load();
 		while(running){
 			
-			//UPDATE THE GAME
-			while(System.nanoTime()-lastUpdate>tbu){
-				int delta = (int) ((System.nanoTime() - lastUpdate)/1000000L);
-				update(delta);
-				lastUpdate+=tbu;
-				updates++;
-				
-			}
-			if(System.nanoTime()-lastcrackupdate > 1000000000L){
-				rUPS = updates;
-				rFPS = fps;
-				fps=0;
-				updates = 0;
-				lastcrackupdate = System.nanoTime();
-				System.out.println("updatesPerSecond:"+getUPS()+"  fps:"+rFPS);
-			}	
-			
-			//RENDER THE GAME
 			if(loader.isDoneLoading()){
-				g.clear();
-				render(g);
-				g.show();
-				fps++;
-			}
+
 				
-			//UPDATE THE GAME DISPLAY
-			gameDisplay.updateDisplay();
+				//Safe init
+				if(!safeinit){
+					safeInit();
+					safeinit = true;
+				}
+				
+				
+				//UPDATE THE GAME
+				while(System.nanoTime()-lastUpdate>tbu){
+					int delta = (int) ((System.nanoTime() - lastUpdate)/1000000L);
+					update(delta);
+					lastUpdate+=tbu;
+					updates++;
+					
+				}
+				if(System.nanoTime()-lastcrackupdate > 1000000000L){
+					rUPS = updates;
+					rFPS = fps;
+					fps=0;
+					updates = 0;
+					lastcrackupdate = System.nanoTime();
+					System.out.println("updatesPerSecond:"+getUPS()+"  fps:"+rFPS);
+				}	
+				
+				//RENDER THE GAME
+				if(loader.isDoneLoading()){
+					g.clear();
+					render(g);
+					g.show();
+					fps++;
+				}
+					
+				//UPDATE THE GAME DISPLAY
+				gameDisplay.updateDisplay();
+			}
 		}
 		
 		//CLEAN UP GAME ASSETS
@@ -221,6 +233,11 @@ public abstract class KyperJGame implements Runnable{
 	 * initialize game resources and settings here
 	 */
 	public abstract void initialize();
+	
+	/**
+	 * safely initialize objects with reference that has yet to be loaded or initialized
+	 */
+	public abstract void safeInit();
 	
 	/**
 	 * uses a graphics component to help render our game
