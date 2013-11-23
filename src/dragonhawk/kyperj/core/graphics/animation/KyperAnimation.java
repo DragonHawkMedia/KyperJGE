@@ -64,19 +64,22 @@ public class KyperAnimation implements Animation{
 				if(callback!=null)
 					callback.animationStart(this);
 			}else{
-				long now = System.nanoTime();
-				if(KyperSimpleUtils.milliDiffFromNanos(now, lastChange)>= duration){
-					curr_frame++;
-					lastChange = now;
+				if(!paused){
+					long now = System.nanoTime();
+					if(KyperSimpleUtils.milliDiffFromNanos(now, lastChange)>= duration){
+						curr_frame++;
+						lastChange = now;
+					}
+					
+					if(curr_frame>frames.size()-1){
+						if(repeat)
+							curr_frame = 0;
+						else
+							if(callback!=null)
+								callback.animationEnd(this);
+					}
 				}
 				
-				if(curr_frame>frames.size()-1){
-					if(repeat)
-						curr_frame = 0;
-					else
-						if(callback!=null)
-							callback.animationEnd(this);
-				}
 			}
 			image = frames.get(curr_frame);
 		return image;	

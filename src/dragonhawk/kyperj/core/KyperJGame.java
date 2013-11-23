@@ -146,7 +146,7 @@ public abstract class KyperJGame implements Runnable{
 					update(delta);
 					lastUpdate+=tbu;
 					updates++;
-					
+					input.update_input();
 				}
 				if(System.nanoTime()-lastcrackupdate > 1000000000L){
 					rUPS = updates;
@@ -167,6 +167,7 @@ public abstract class KyperJGame implements Runnable{
 					
 				//UPDATE THE GAME DISPLAY
 				gameDisplay.updateDisplay();
+				
 			}
 		}
 		

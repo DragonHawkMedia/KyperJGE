@@ -23,6 +23,10 @@ public interface GameInput {
 	 */
 	public boolean isMouseButtonDown(int MouseButton);
 	
+	public InputState getKeyState(int key);
+	
+	public InputState getMouseButtonState(int button);
+	
 	/**
 	 * get the mouse pixel  x coordinate on the screen
 	 * @return get mouse x
@@ -34,5 +38,18 @@ public interface GameInput {
 	 * @return get mouse y
 	 */
 	public double getMouseY();
+	
+	/**
+	 * amount of times key has been registered as pressed without being released
+	 * @param key - the key to get count for
+	 * @return int - amount
+	 */
+	public boolean isKeyReleased(int key);
+	
+	public static enum InputState{
+		PRESSED_ONCE,
+		PRESSED,
+		RELEASED;
+	}
 
 }
