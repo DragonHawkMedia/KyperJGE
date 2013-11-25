@@ -28,8 +28,6 @@ public class Java2DGameDisplay implements GameDisplay {
 	private BufferStrategy render_strategy;
 	/*the settings for our game*/
 	private DisplaySettings Rsettings;
-	/*our displays icon*/
-	private Image icon;
 	/*the game containing this display*/
 	private KyperJGame container;
 	/*the graphics component for this type of display*/
@@ -38,9 +36,16 @@ public class Java2DGameDisplay implements GameDisplay {
 	private long lastFrame;
 	/*is the display fullscreen?*/
 	private boolean fullscreen = false;
+	/*default engine icon*/
+	private Image defaultIcon;
 
 	
 	public Java2DGameDisplay(KyperJGame container){
+		try {
+			defaultIcon = ImageIO.read(this.getClass().getResource("/windowicon.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		Rsettings = new DisplaySettings(
 				DisplaySettings.DEFAULT_WIDTH,
 				DisplaySettings.DEFAULT_HEIGHT);
@@ -50,7 +55,7 @@ public class Java2DGameDisplay implements GameDisplay {
 	@Override
 	public void setIcon(String icon) {
 		try {
-			this.icon = ImageIO.read(new File(icon));
+			Rsettings.setIcon(ImageIO.read(new File(icon)));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -72,8 +77,8 @@ public class Java2DGameDisplay implements GameDisplay {
 		frame.add(game_canvas);
 		if (Rsettings.getTitle() != null)
 			frame.setTitle(Rsettings.getTitle());
-		if (icon != null)
-			frame.setIconImage(icon);
+		if (Rsettings.getIcon() == null)
+			frame.setIconImage(defaultIcon);
 		frame.setVisible(true);
 		
 		frame.setResizable(Rsettings.isResize());

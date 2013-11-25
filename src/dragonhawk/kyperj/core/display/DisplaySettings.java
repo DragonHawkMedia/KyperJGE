@@ -1,5 +1,7 @@
 package dragonhawk.kyperj.core.display;
 
+import java.awt.Image;
+
 
 public class DisplaySettings {
 	/* the default width and height of our games if no other is set*/
@@ -19,7 +21,8 @@ public class DisplaySettings {
 	/*set this to something other than -1 to sync 
 	 * our display to the desired amount*/
 	private int sync = -1;
-	
+	/*the icon our display will use*/
+	private Image icon;
 	/**
 	 * create new display settings with the desired resolution
 	 * @param res - the resolution to be used
@@ -132,6 +135,14 @@ public class DisplaySettings {
 	 */
 	public boolean isTripleBuffered(){
 		return tri_buffer;
+	}
+	
+	public void setIcon(Image icon){
+		this.icon = icon;
+	}
+	
+	public Image getIcon(){
+		return icon;
 	}
 	
 	/**

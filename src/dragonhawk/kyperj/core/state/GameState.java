@@ -11,6 +11,8 @@ public interface GameState {
 
 	public int getStateID();
 	
+	public boolean init();
+	
 	public void update(int delta);
 	
 	public void render(GraphicsComponent g);

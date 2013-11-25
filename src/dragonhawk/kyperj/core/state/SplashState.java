@@ -26,4 +26,10 @@ public class SplashState implements GameState{
 		
 	}
 
+	@Override
+	public boolean init() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
