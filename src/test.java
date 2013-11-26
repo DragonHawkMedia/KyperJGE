@@ -10,6 +10,8 @@ import dragonhawk.kyperj.core.graphics.GameSheet;
 import dragonhawk.kyperj.core.graphics.GraphicsComponent;
 import dragonhawk.kyperj.core.graphics.animation.KyperAnimation;
 import dragonhawk.kyperj.core.input.GameInput.InputState;
+import dragonhawk.kyperj.core.sound.GameSound;
+import dragonhawk.kyperj.core.sound.GameSound.SoundType;
 import dragonhawk.kyperj.core.state.GameStateManager;
 
 
@@ -19,6 +21,7 @@ public class test extends KyperJGame{
 	GameImage test;
 	GameSheet sheet;
 	KyperAnimation anim,anim2,anim3,anim4;
+	GameSound sound1;
 	float x = 100, y = 100;
 	
 	public void initialize() {
@@ -26,6 +29,8 @@ public class test extends KyperJGame{
 		test = getLoader().loadGameImage("C:/Users/john/Desktop/pokemansmmo/100.gif", false);
 		sheet = getLoader().loadGameSheet("C:/Users/john/Desktop/KyperJ/resources/senorviro.png", false, 16);
 		sheet.removeColor(new Color(0xff00ff));
+		
+		sound1 = getLoader().loadGameSound("C:/Users/john/Desktop/old_desktop/GitHub/JavaGroup/JavaGroup/resource/tab.ogg", false, SoundType.MUSIC);
 		
 	}
 	
@@ -38,6 +43,7 @@ public class test extends KyperJGame{
 		anim.addFrame(sheet.imageAt(2, 3));
 		anim.setFrameDuration(400);
 		anim.setRepeat(true);
+		
 		
 		anim2 = new KyperAnimation();
 		anim2.addFrame(sheet.imageAt(0, 1));
@@ -104,6 +110,9 @@ public class test extends KyperJGame{
 				anim.pause();
 			}
 		}	
+		
+		if(sound1.isloaded() && sound1.isPlaying())
+			sound1.play(true);
 	}
 	
 	public static void main(String args[]){

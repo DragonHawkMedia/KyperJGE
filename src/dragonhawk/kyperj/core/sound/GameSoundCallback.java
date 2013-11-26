@@ -9,4 +9,8 @@ public interface GameSoundCallback {
 	public void paused(GameSound sound);
 	
 	public void resumed(GameSound sound);
+	
+	public void muted(GameSound sound);
+	
+	public void unmuted(GameSound sound);
 }

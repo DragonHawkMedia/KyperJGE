@@ -13,6 +13,7 @@ import dragonhawk.kyperj.core.input.Java2DGameInput;
 import dragonhawk.kyperj.core.load.GameResource;
 import dragonhawk.kyperj.core.load.GameResourceLoader;
 import dragonhawk.kyperj.core.load.Java2DResourceLoader;
+import dragonhawk.kyperj.core.sound.SoundManager;
 
 public abstract class KyperJGame implements Runnable{
 	/* the different type of supported environments */
@@ -40,6 +41,8 @@ public abstract class KyperJGame implements Runnable{
 	private static GameInput input;
 	/*our image gallery*/
 	private static GraphicsGallery gallery = new SimpleGraphicsGallery();
+	/*our sound manager*/
+	private static SoundManager soundmanager = new SoundManager();
 	
 	/**
 	 * Set our running boolean to true and then 
@@ -65,6 +68,10 @@ public abstract class KyperJGame implements Runnable{
 	
 	public static GraphicsGallery getGallery(){
 		return gallery;
+	}
+	
+	public static SoundManager getSoundManager(){
+		return soundmanager;
 	}
 	
 	public GameInput getInput(){

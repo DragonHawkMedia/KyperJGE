@@ -6,6 +6,7 @@ import java.util.List;
 import dragonhawk.kyperj.core.graphics.GameImage;
 import dragonhawk.kyperj.core.graphics.GameSheet;
 import dragonhawk.kyperj.core.sound.GameSound;
+import dragonhawk.kyperj.core.sound.GameSound.SoundType;
 
 public interface GameResourceLoader {
 	
@@ -25,7 +26,7 @@ public interface GameResourceLoader {
 	 * @param inpath - whether or not the file is inside the project
 	 * @return - the GameSound to be used 
 	 */
-	public GameSound loadGameSound(String file, boolean inproject);
+	public GameSound loadGameSound(String file, boolean inproject, SoundType type);
 	
 	/**
 	 * load a game sheet(tilesheet) with 

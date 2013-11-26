@@ -10,6 +10,8 @@ import dragonhawk.kyperj.core.graphics.GameSheet;
 import dragonhawk.kyperj.core.graphics.Java2DGameImage;
 import dragonhawk.kyperj.core.graphics.Java2DGameSheet;
 import dragonhawk.kyperj.core.sound.GameSound;
+import dragonhawk.kyperj.core.sound.GameSound.SoundType;
+import dragonhawk.kyperj.core.sound.SimpleGameSound;
 
 public class Java2DResourceLoader implements GameResourceLoader{
 	
@@ -33,9 +35,10 @@ public class Java2DResourceLoader implements GameResourceLoader{
 	}
 
 	@Override
-	public GameSound loadGameSound(String file, boolean inproject) {
-		GameSound sound =  null;
-		
+	public GameSound loadGameSound(String file, boolean inproject,SoundType type) {
+		GameSound sound =  new SimpleGameSound(file, resources.size(), inproject, type);
+		resources.add(sound);
+		KyperJGame.getSoundManager().add(sound);
 		return sound;
 	}
 	
