@@ -1,6 +1,5 @@
 package dragonhawk.kyperj.core.load;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import dragonhawk.kyperj.core.graphics.GameImage;
@@ -70,5 +69,9 @@ public interface GameResourceLoader {
 	 * @return files that have been loaded %
 	 */
 	public double getPercentageDone();
+	
+	public void loadBegin();
+	
+	public void loadEnd();
 	
 }

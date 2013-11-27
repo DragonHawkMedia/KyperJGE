@@ -22,7 +22,7 @@ public class test extends KyperJGame{
 	GameSheet sheet;
 	KyperAnimation anim,anim2,anim3,anim4;
 	GameSound sound1,sound2;
-	float x = 100, y = 100;
+	float x = 200, y = 100;
 	
 	public void initialize() {
 		gsm = new GameStateManager();
@@ -44,8 +44,6 @@ public class test extends KyperJGame{
 		anim.addFrame(sheet.imageAt(2, 3));
 		anim.setFrameDuration(400);
 		anim.setRepeat(true);
-		
-		sound1.setGain(1.0f);
 		
 		anim2 = new KyperAnimation();
 		anim2.addFrame(sheet.imageAt(0, 1));
