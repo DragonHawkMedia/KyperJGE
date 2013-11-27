@@ -212,7 +212,7 @@ public class SimpleGameSound implements GameSound{
 			switch (type) {
 			case CLIP: playing = false;
 				break;
-			case MUSIC: playing = !music.done();
+			case MUSIC: playing = music.playing();
 				break;
 			}
 		}

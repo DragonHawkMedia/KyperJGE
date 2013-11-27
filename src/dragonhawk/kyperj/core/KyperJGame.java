@@ -13,6 +13,7 @@ import dragonhawk.kyperj.core.input.Java2DGameInput;
 import dragonhawk.kyperj.core.load.GameResource;
 import dragonhawk.kyperj.core.load.GameResourceLoader;
 import dragonhawk.kyperj.core.load.Java2DResourceLoader;
+import dragonhawk.kyperj.core.sound.SimpleGameSound;
 import dragonhawk.kyperj.core.sound.SoundManager;
 
 public abstract class KyperJGame implements Runnable{
@@ -205,6 +206,7 @@ public abstract class KyperJGame implements Runnable{
 	 * be cleaned up after our game has stopped
 	 */
 	private void cleanup(){
+		SimpleGameSound.end();
 		gameDisplay.destroy();
 		System.exit(0);
 	}

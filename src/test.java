@@ -21,7 +21,7 @@ public class test extends KyperJGame{
 	GameImage test;
 	GameSheet sheet;
 	KyperAnimation anim,anim2,anim3,anim4;
-	GameSound sound1;
+	GameSound sound1,sound2;
 	float x = 100, y = 100;
 	
 	public void initialize() {
@@ -31,6 +31,7 @@ public class test extends KyperJGame{
 		sheet.removeColor(new Color(0xff00ff));
 		
 		sound1 = getLoader().loadGameSound("C:/Users/john/Desktop/old_desktop/GitHub/JavaGroup/JavaGroup/resource/tab.ogg", false, SoundType.MUSIC);
+		sound2 = getLoader().loadGameSound("C:/Users/john/Desktop/old_desktop/Maescool-Catacomb-Snatch-bd32dfd/res/sound/coin1.wav", false, SoundType.CLIP);
 		
 	}
 	
@@ -44,6 +45,7 @@ public class test extends KyperJGame{
 		anim.setFrameDuration(400);
 		anim.setRepeat(true);
 		
+		sound1.setGain(1.0f);
 		
 		anim2 = new KyperAnimation();
 		anim2.addFrame(sheet.imageAt(0, 1));
@@ -109,9 +111,13 @@ public class test extends KyperJGame{
 			}else{
 				anim.pause();
 			}
-		}	
+		}
 		
-		if(sound1.isloaded() && sound1.isPlaying())
+		if(getInput().getKeyState(KeyEvent.VK_SPACE)==InputState.PRESSED_ONCE){
+			sound2.play(false);
+		}
+		
+		if(sound1.isloaded() && !sound1.isPlaying())
 			sound1.play(true);
 	}
 	
@@ -123,7 +129,7 @@ public class test extends KyperJGame{
 		settings.setTripleBuffer(false);
 		settings.setResize(false);
 		settings.setSync(60);
-		settings.setTitle("jonathanCREW");
+		settings.setTitle("kyperjdemo");
 		t.setDisplaySettings(settings);
 		t.setUPS(40);
 		t.start();
