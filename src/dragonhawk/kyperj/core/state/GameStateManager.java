@@ -34,8 +34,8 @@ public class GameStateManager {
 	public void render(GraphicsComponent g){
 		if(states.isEmpty())
 			return;
-		
-		states.get(current_state).render(g);
+		if(states.get(current_state).hasStarted()&&states.get(current_state).hasSafeInit())
+			states.get(current_state).render(g);
 	}
 	
 	public void update(int delta){

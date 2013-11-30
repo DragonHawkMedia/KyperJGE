@@ -71,7 +71,7 @@ public interface GameResourceLoader {
 	 * get the loading percentage 
 	 * @return files that have been loaded %
 	 */
-	public double getPercentageDone();
+	public double getPercentageDone(String state);
 	
 	public void loadBegin(GameState state);
 	

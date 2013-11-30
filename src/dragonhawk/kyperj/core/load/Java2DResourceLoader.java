@@ -31,6 +31,8 @@ public class Java2DResourceLoader implements GameResourceLoader{
 
 	@Override
 	public GameImage loadGameImage(String file, boolean inproject) {
+		if(resources.containsKey(file))
+			return (GameImage)resources.get(file);
 		GameImage image = new Java2DGameImage(file, resources.get(currentload).size(), inproject);
 		resources.get(currentload).add((Java2DGameImage)image);
 		KyperJGame.getGallery().addGameImage(image);;
@@ -39,6 +41,8 @@ public class Java2DResourceLoader implements GameResourceLoader{
 
 	@Override
 	public GameSound loadGameSound(String file, boolean inproject,SoundType type) {
+		if(resources.containsKey(file))
+			return (GameSound)resources.get(file);
 		GameSound sound =  new SimpleGameSound(file,  resources.get(currentload).size(), inproject, type);
 		resources.get(currentload).add(sound);
 		KyperJGame.getSoundManager().add(sound);
@@ -46,6 +50,8 @@ public class Java2DResourceLoader implements GameResourceLoader{
 	}
 	
 	public GameSheet loadGameSheet(String file, boolean inproject, int segment_size){
+		if(resources.containsKey(file))
+			return (GameSheet)resources.get(file);
 		GameSheet sheet = new Java2DGameSheet(file, inproject,  resources.get(currentload).size() ,segment_size);
 		resources.get(currentload).add((Java2DGameSheet)sheet);
 		KyperJGame.getGallery().addGameSheet(sheet);
@@ -89,8 +95,8 @@ public class Java2DResourceLoader implements GameResourceLoader{
 	}
 
 	@Override
-	public double getPercentageDone() {
-		return current_load_index/resources.size()*100;
+	public double getPercentageDone(String state) {
+		return current_load_index/resources.get(state).size()*100;
 	}
 
 	@Override
@@ -112,6 +118,9 @@ public class Java2DResourceLoader implements GameResourceLoader{
 
 	@Override
 	public void load(final String state) {
+		if(!KyperJGame.getGSM().getGameState(state).hasStarted())
+			KyperJGame.getGSM().getGameState(state).start();
+		
 		currentload = state;
 		System.out.println("loading "+state);
 		//create a separate thread to load game resources

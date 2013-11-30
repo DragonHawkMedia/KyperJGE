@@ -154,17 +154,9 @@ public abstract class KyperJGame implements Runnable{
 	    long lastcrackupdate = System.nanoTime();
 		lastUpdate = System.nanoTime();
 		gsm.getCurrentState().start();
-		loader.load(GameState.SPLASH_STATE);
+		loader.load(gsm.getCurrentState().getStateName());
 		while(running){
-			if(loader.isDoneLoading()){	
-				//Safe init
-				if(!safeinit){
-					safeInit();
-					gsm.getCurrentState().SafeInit();
-					safeinit = true;
-				}
-				
-				
+			if(gsm.getCurrentState().isDoneLoading()&&gsm.getCurrentState().hasSafeInit()){	
 				
 				//UPDATE THE GAME
 				while(System.nanoTime()-lastUpdate>tbu){
@@ -194,6 +186,13 @@ public abstract class KyperJGame implements Runnable{
 				//UPDATE THE GAME DISPLAY
 				gameDisplay.updateDisplay();
 				
+			}else if(!gsm.getCurrentState().hasSafeInit()){
+				gsm.getCurrentState().SafeInit();
+				gsm.getCurrentState().setSafeInit(true);
+				if(!safeinit){
+					safeInit();
+					safeinit = true;
+				}
 			}	
 		}
 			

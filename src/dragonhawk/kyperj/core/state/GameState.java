@@ -14,6 +14,16 @@ public abstract class GameState {
 	private boolean started  = false;
 	private boolean done_loading = false;
 	
+	private boolean safeinit = false;
+	
+	public boolean hasSafeInit(){
+		return safeinit;
+	}
+	
+	public void setSafeInit(boolean init){
+		this.safeinit = init;
+	}
+	
 	public boolean isDoneLoading(){
 		return done_loading;
 	}
