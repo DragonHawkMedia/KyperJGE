@@ -10,15 +10,42 @@ public abstract class GameState {
 	public static final String IN_GAME_STATE = "ingame";
 	public static final String GAME_OVER_STATE = "gameover";
 
-	public  abstract int getStateID();
+	private String name="";
+	private boolean started  = false;
+	private boolean done_loading = false;
 	
-	public void start(){
-		KyperJGame.getLoader().loadBegin();
-		
-		KyperJGame.getLoader().loadEnd();
+	public boolean isDoneLoading(){
+		return done_loading;
 	}
 	
-	public abstract boolean init();
+	public void finishLoading(){
+		done_loading = true;
+	}
+	
+	public boolean hasStarted(){
+		return started;
+	}
+	
+	public  abstract int getStateID();
+	
+	public String getStateName(){
+		return name;
+	}
+	
+	public void setStateName(String name){
+		this.name = name;
+	}
+	
+	public void start(){
+		KyperJGame.getLoader().loadBegin(this);
+		load();
+		KyperJGame.getLoader().loadEnd(this);
+		started = true;
+	}
+	
+	public abstract void load();
+	
+	public abstract boolean SafeInit();
 	
 	public abstract void update(int delta);
 	

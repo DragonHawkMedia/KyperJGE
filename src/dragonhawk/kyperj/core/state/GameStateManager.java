@@ -20,6 +20,15 @@ public class GameStateManager {
 	
 	public void add(GameState state, String key){
 		states.put(key, state);
+		state.setStateName(key);
+	}
+	
+	public void removeState(String state){
+		states.remove(state);
+	}
+	
+	public void startState(String state){
+		states.get(state).start();
 	}
 	
 	public void render(GraphicsComponent g){
@@ -35,9 +44,17 @@ public class GameStateManager {
 		states.get(current_state).update(delta);
 	}
 	
+	public GameState getCurrentState(){
+		return states.get(current_state);
+	}
+	
 	public void changeState(String state){
 		prev_state = current_state+"";
 		current_state = state;
+	}
+	
+	public GameState getGameState(String state){
+		return states.get(state);
 	}
 	
 	public void lastState(){

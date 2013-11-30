@@ -2,7 +2,9 @@ package dragonhawk.kyperj.core.load;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dragonhawk.kyperj.core.KyperJGame;
 import dragonhawk.kyperj.core.graphics.GameImage;
@@ -12,39 +14,40 @@ import dragonhawk.kyperj.core.graphics.Java2DGameSheet;
 import dragonhawk.kyperj.core.sound.GameSound;
 import dragonhawk.kyperj.core.sound.GameSound.SoundType;
 import dragonhawk.kyperj.core.sound.SimpleGameSound;
+import dragonhawk.kyperj.core.state.GameState;
 
 public class Java2DResourceLoader implements GameResourceLoader{
 	
-	private List<GameResource> resources;
+	private Map<String, List<GameResource>> resources;
 	
 	private int current_load_index = 0;
 	
-	private boolean done = false;
+	private String currentload;
 	
 	
 	public Java2DResourceLoader(){
-		resources = Collections.synchronizedList(new ArrayList<GameResource>());
+		resources = Collections.synchronizedMap(new HashMap<String, List<GameResource>>());
 	}
 
 	@Override
 	public GameImage loadGameImage(String file, boolean inproject) {
-		GameImage image = new Java2DGameImage(file, resources.size(), inproject);
-		resources.add((Java2DGameImage)image);
+		GameImage image = new Java2DGameImage(file, resources.get(currentload).size(), inproject);
+		resources.get(currentload).add((Java2DGameImage)image);
 		KyperJGame.getGallery().addGameImage(image);;
 		return image;
 	}
 
 	@Override
 	public GameSound loadGameSound(String file, boolean inproject,SoundType type) {
-		GameSound sound =  new SimpleGameSound(file, resources.size(), inproject, type);
-		resources.add(sound);
+		GameSound sound =  new SimpleGameSound(file,  resources.get(currentload).size(), inproject, type);
+		resources.get(currentload).add(sound);
 		KyperJGame.getSoundManager().add(sound);
 		return sound;
 	}
 	
 	public GameSheet loadGameSheet(String file, boolean inproject, int segment_size){
-		GameSheet sheet = new Java2DGameSheet(file, inproject, resources.size() ,segment_size);
-		resources.add((Java2DGameSheet)sheet);
+		GameSheet sheet = new Java2DGameSheet(file, inproject,  resources.get(currentload).size() ,segment_size);
+		resources.get(currentload).add((Java2DGameSheet)sheet);
 		KyperJGame.getGallery().addGameSheet(sheet);
 		return sheet;
 	}
@@ -64,25 +67,25 @@ public class Java2DResourceLoader implements GameResourceLoader{
 				synchronized(resources){
 					
 					while(current_load_index<resources.size()){
-						resources.get(current_load_index).load();
+						resources.get(currentload).get(current_load_index).load();
 						current_load_index++;
-						System.out.println("locading");
+						System.out.println("loading");
 					}
-					done = true;
+					KyperJGame.getGSM().getGameState(currentload).finishLoading();;
 				}
-				
+				current_load_index = 0;
 			}
 		}).start();
 	}
 
 	@Override
 	public synchronized List<GameResource> getResources() {
-		return resources;
+		return resources.get(currentload);
 	}
 
 	@Override
 	public void setResources(List<GameResource> resources) {
-		this.resources = Collections.synchronizedList(resources);
+		this.resources.put(currentload, (ArrayList<GameResource>) Collections.synchronizedList(resources));
 	}
 
 	@Override
@@ -92,7 +95,44 @@ public class Java2DResourceLoader implements GameResourceLoader{
 
 	@Override
 	public synchronized boolean  isDoneLoading() {
-		return  done;
+		return  KyperJGame.getGSM().getGameState(currentload).isDoneLoading();
+	}
+
+	@Override
+	public void loadBegin(GameState state) {
+		List<GameResource> list = Collections.synchronizedList(new ArrayList<GameResource>());
+		resources.put(state.getStateName(),list);
+		currentload = state.getStateName();
+	}
+
+	@Override
+	public void loadEnd(GameState state) {
+		
+	}
+
+	@Override
+	public void load(final String state) {
+		currentload = state;
+		System.out.println("loading "+state);
+		//create a separate thread to load game resources
+				new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						//loop through resource list and load resources individually
+						synchronized(resources){
+							
+							while(current_load_index< resources.get(currentload).size()){
+								resources.get(state).get(current_load_index).load();
+								current_load_index++;
+								System.out.println("loading");
+							}
+							KyperJGame.getGSM().getGameState(currentload).finishLoading();
+						}
+						current_load_index = 0;
+					}
+				}).start();
+		
 	}
 
 

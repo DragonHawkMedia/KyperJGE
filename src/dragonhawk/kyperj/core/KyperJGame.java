@@ -15,6 +15,8 @@ import dragonhawk.kyperj.core.load.GameResourceLoader;
 import dragonhawk.kyperj.core.load.Java2DResourceLoader;
 import dragonhawk.kyperj.core.sound.SimpleGameSound;
 import dragonhawk.kyperj.core.sound.SoundManager;
+import dragonhawk.kyperj.core.state.GameState;
+import dragonhawk.kyperj.core.state.GameStateManager;
 
 public abstract class KyperJGame implements Runnable{
 	/* the different type of supported environments */
@@ -37,13 +39,17 @@ public abstract class KyperJGame implements Runnable{
 	/*The settings for the display that is going to be made*/
 	private DisplaySettings settings;
 	/*this will be used to load all our game resources*/
-	private static GameResourceLoader loader;
+	private static GameResourceLoader loader = new Java2DResourceLoader();
 	/*game input handler*/
 	private static GameInput input;
 	/*our image gallery*/
 	private static GraphicsGallery gallery = new SimpleGraphicsGallery();
 	/*our sound manager*/
 	private static SoundManager soundmanager = new SoundManager();
+	
+	protected static GameStateManager gsm = new GameStateManager();
+	
+	public static KyperJGame game;
 	
 	/**
 	 * Set our running boolean to true and then 
@@ -52,6 +58,14 @@ public abstract class KyperJGame implements Runnable{
 	public void start(){
 		running = true;
 		new Thread(this).start();
+	}
+	
+	public static void setGame(KyperJGame agame){
+		game = agame;
+	}
+	
+	public static KyperJGame getGame(){
+		return game;
 	}
 	
 	/**
@@ -75,8 +89,12 @@ public abstract class KyperJGame implements Runnable{
 		return soundmanager;
 	}
 	
-	public GameInput getInput(){
+	public static GameInput getInput(){
 		return input;
+	}
+	
+	public static GameStateManager getGSM(){
+		return gsm;
 	}
 	
 	
@@ -111,8 +129,8 @@ public abstract class KyperJGame implements Runnable{
 	public void run(){
 		//create a new display with the default mode
 		gameDisplay = new Java2DGameDisplay(this);
-		loader = new Java2DResourceLoader();
 		//game initializes all things in abstract method
+		
 		initialize();
 		//give the display the settings we gave it
 		//if they are null, use default settings
@@ -135,23 +153,23 @@ public abstract class KyperJGame implements Runnable{
 	    int fps = 0;
 	    long lastcrackupdate = System.nanoTime();
 		lastUpdate = System.nanoTime();
-		loader.load();
+		gsm.getCurrentState().start();
+		loader.load(GameState.SPLASH_STATE);
 		while(running){
-			
-			if(loader.isDoneLoading()){
-
-				
+			if(loader.isDoneLoading()){	
 				//Safe init
 				if(!safeinit){
 					safeInit();
+					gsm.getCurrentState().SafeInit();
 					safeinit = true;
 				}
+				
 				
 				
 				//UPDATE THE GAME
 				while(System.nanoTime()-lastUpdate>tbu){
 					int delta = (int) ((System.nanoTime() - lastUpdate)/1000000L);
-					update(delta);
+					gsm.update(delta);
 					lastUpdate+=tbu;
 					updates++;
 					input.update_input();
@@ -168,7 +186,7 @@ public abstract class KyperJGame implements Runnable{
 				//RENDER THE GAME
 				if(loader.isDoneLoading()){
 					g.clear();
-					render(g);
+					gsm.render(g);
 					g.show();
 					fps++;
 				}
@@ -176,8 +194,10 @@ public abstract class KyperJGame implements Runnable{
 				//UPDATE THE GAME DISPLAY
 				gameDisplay.updateDisplay();
 				
-			}
+			}	
 		}
+			
+			
 		
 		//CLEAN UP GAME ASSETS
 		cleanup();
@@ -220,9 +240,6 @@ public abstract class KyperJGame implements Runnable{
 		switch(mode){
 		case JAVA2D: gameDisplay = new Java2DGameDisplay(this);
 					 gameDisplay.setDisplaySettings(settings);
-					 List<GameResource> list = loader.getResources();
-					 loader = new Java2DResourceLoader();
-					 loader.setResources(list);
 					 input = new Java2DGameInput(this);
 ;			break;
 		case LWJGL: 
@@ -249,18 +266,6 @@ public abstract class KyperJGame implements Runnable{
 	 */
 	public abstract void safeInit();
 	
-	/**
-	 * uses a graphics component to help render our game
-	 * 
-	 * @param g - graphics component that will render our game
-	 */
-	public abstract void render(GraphicsComponent g);
-	
-	/**
-	 * update our games logic with a delta value
-	 * @param delta - value used to have smooth updating
-	 */
-	public abstract void update(int delta);
 	
 	
 	

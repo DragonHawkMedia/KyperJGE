@@ -6,6 +6,7 @@ import dragonhawk.kyperj.core.graphics.GameImage;
 import dragonhawk.kyperj.core.graphics.GameSheet;
 import dragonhawk.kyperj.core.sound.GameSound;
 import dragonhawk.kyperj.core.sound.GameSound.SoundType;
+import dragonhawk.kyperj.core.state.GameState;
 
 public interface GameResourceLoader {
 	
@@ -46,6 +47,8 @@ public interface GameResourceLoader {
 	 */
 	public void load();
 	
+	public void load(String state);
+	
 	/**
 	 * if assets are done loading
 	 * @return if assets are loading
@@ -70,8 +73,8 @@ public interface GameResourceLoader {
 	 */
 	public double getPercentageDone();
 	
-	public void loadBegin();
+	public void loadBegin(GameState state);
 	
-	public void loadEnd();
+	public void loadEnd(GameState state);
 	
 }
