@@ -7,6 +7,7 @@ import java.awt.image.BufferStrategy;
 import dragonhawk.kyperj.core.display.DisplaySettings;
 import dragonhawk.kyperj.core.display.GameDisplay;
 import dragonhawk.kyperj.core.display.Java2DGameDisplay;
+import dragonhawk.kyperj.core.graphics.font.GameFont;
 
 public class Java2DGraphicsComponent implements GraphicsComponent{
 	
@@ -93,6 +94,11 @@ public class Java2DGraphicsComponent implements GraphicsComponent{
 		graphics.dispose();
 		strat.show();
 		
+		
+	}
+
+	@Override
+	public void drawString(String string, float x, float y, GameFont font) {
 		
 	}
 

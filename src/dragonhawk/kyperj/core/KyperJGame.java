@@ -186,7 +186,7 @@ public abstract class KyperJGame implements Runnable{
 				//UPDATE THE GAME DISPLAY
 				gameDisplay.updateDisplay();
 				
-			}else if(!gsm.getCurrentState().hasSafeInit()){
+			}else if(gsm.getCurrentState().isDoneLoading()&&!gsm.getCurrentState().hasSafeInit()){
 				gsm.getCurrentState().SafeInit();
 				gsm.getCurrentState().setSafeInit(true);
 				if(!safeinit){

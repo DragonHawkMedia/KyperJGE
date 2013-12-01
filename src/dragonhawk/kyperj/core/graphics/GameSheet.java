@@ -47,5 +47,7 @@ public interface GameSheet {
 	public void removeColor(java.awt.Color color);
 	
 	public void removeColors(java.awt.Color colors[]);
+	
+	public void createFadeIn(int frames, float fi);
 
 }

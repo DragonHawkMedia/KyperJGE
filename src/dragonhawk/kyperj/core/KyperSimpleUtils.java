@@ -1,10 +1,12 @@
 package dragonhawk.kyperj.core;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.awt.image.FilteredImageSource;
@@ -97,6 +99,27 @@ public class KyperSimpleUtils {
     	g.drawImage(image, 0, 0,null);
     	g.dispose();
     	return bufim;
+    }
+    
+    public static BufferedImage createCompatibleBlendedSheet(BufferedImage image,int frames,float fi){
+    	BufferedImage newimage = new BufferedImage(image.getWidth(), image.getHeight()*frames, BufferedImage.TYPE_4BYTE_ABGR);
+    	Graphics2D g2 = (Graphics2D) newimage.getGraphics();
+    	float alpha = 0.0f;
+    	for (int i = 0; i < frames; i++) {
+    		g2.setComposite(AlphaComposite.getInstance(
+    	            AlphaComposite.SRC_OVER, alpha));
+    	    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+    	    g2.drawImage(image, 0, i*image.getHeight(), null);
+    	    
+    	    alpha += fi;
+    	    if (alpha >= 1.0f) 
+    	        alpha = 1.0f;
+		}
+    	g2.dispose();
+    	
+    	newimage = toCompatibleImage(newimage);
+    	
+    	return newimage;
     }
     
     public static int milliDiffFromNanos(long now ,long last){

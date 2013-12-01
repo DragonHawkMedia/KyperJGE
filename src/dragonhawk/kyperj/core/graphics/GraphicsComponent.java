@@ -2,6 +2,8 @@ package dragonhawk.kyperj.core.graphics;
 
 import java.awt.Point;
 
+import dragonhawk.kyperj.core.graphics.font.GameFont;
+
 public interface GraphicsComponent {
 	/**
 	 * set the color to use next
@@ -60,5 +62,7 @@ public interface GraphicsComponent {
 	 * show the graphics component and put it on the display
 	 */
 	public void show();
+	
+	public void drawString(String string,float x, float y, GameFont font);
 
 }

@@ -11,6 +11,8 @@ import dragonhawk.kyperj.core.load.GameResource;
 public class Java2DGameSheet implements GameSheet, GameResource{
 	
 	private int tile_square_size = 0;
+	private int square_width = 0;
+	private int square_height = 0;
 	private boolean loaded = false;
 	private BufferedImage sheet;
 	private ArrayList<java.awt.Color> colors;
@@ -19,6 +21,9 @@ public class Java2DGameSheet implements GameSheet, GameResource{
 	private String ref;
 	private int id;
 	private boolean xjct = false;
+	private boolean fadein = false;
+	private int frames = 0;
+	private float fi = 0.0f;
 	
 	private HashMap<Integer,Java2DGameImage> subimages;
 
@@ -28,6 +33,8 @@ public class Java2DGameSheet implements GameSheet, GameResource{
 		this.ref = ref;
 		this.xjct = xjct;
 		this.tile_square_size = size;
+		this.square_width = size;
+		this.square_height = size;
 		this.id = id;
 	}
 	
@@ -54,6 +61,15 @@ public class Java2DGameSheet implements GameSheet, GameResource{
 				sheet = KyperSimpleUtils.toCompatibleImage(sheet); 
 			}
 			
+			if(fadein){
+				tile_square_size = sheet.getHeight();
+				square_width = sheet.getWidth();
+				square_height = sheet.getHeight();
+				sheet = KyperSimpleUtils.createCompatibleBlendedSheet(sheet, frames, fi);
+				
+			}
+				
+			
 			width = sheet.getWidth();
 			height = sheet.getHeight();
 			loaded = true;		
@@ -62,7 +78,7 @@ public class Java2DGameSheet implements GameSheet, GameResource{
 	@Override
 	public GameImage imageAt(int x, int y) {
 		if(!subimages.containsKey(x+(y*(sheet.getWidth()/tile_square_size)))){
-			Java2DGameImage sub = new Java2DGameImage(sheet.getSubimage(x*tile_square_size, y*tile_square_size, tile_square_size, tile_square_size),ref, subimages.size());
+			Java2DGameImage sub = new Java2DGameImage(sheet.getSubimage(x*square_width, y*square_height, square_width, square_height),ref, subimages.size());
 			subimages.put(x+(y*(sheet.getWidth()/tile_square_size)), sub);
 		}	
 		return subimages.get(x+(y*(sheet.getWidth()/tile_square_size)));
@@ -110,6 +126,13 @@ public class Java2DGameSheet implements GameSheet, GameResource{
 		for (int i = 0; i < colors.length; i++) {
 			this.colors.add(colors[i]);
 		}
+	}
+
+	@Override
+	public void createFadeIn(int frames, float fi) {
+		this.frames = frames;
+		this.fi = fi;
+		fadein= true;
 	}
 
 }

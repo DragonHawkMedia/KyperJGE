@@ -14,6 +14,7 @@ public class KyperAnimation implements Animation{
 	private int duration = 300;
 	private long lastChange ;
 	private boolean paused = false;
+	private boolean animation_ended = false;
 	
 	public KyperAnimation(){
 		frames = new ArrayList<GameImage>();
@@ -74,9 +75,13 @@ public class KyperAnimation implements Animation{
 					if(curr_frame>frames.size()-1){
 						if(repeat)
 							curr_frame = 0;
-						else
-							if(callback!=null)
+						else{
+							curr_frame--;
+							if(callback!=null&&!animation_ended){
 								callback.animationEnd(this);
+								animation_ended = true;
+							}
+						}
 					}
 				}
 				
