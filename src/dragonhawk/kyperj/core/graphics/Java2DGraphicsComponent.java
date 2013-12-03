@@ -98,7 +98,15 @@ public class Java2DGraphicsComponent implements GraphicsComponent{
 	}
 
 	@Override
-	public void drawString(String string, float x, float y, GameFont font) {
+	public void drawString(String string, float x, float y, GameFont font,int size) {
+		DisplaySettings s = display.getDisplaySettings();
+		
+		GameImage[] si = font.getString(string);
+		
+		for (int i = 0; i < si.length; i++) {
+			graphics.drawImage(((Java2DGameImage)si[i]).getImage(),(int)((x+i*size)*s.getScale())+i,(int) (y*s.getScale()),
+					 (int)(size*s.getScale()), (int)(size*s.getScale()),null);
+		}
 		
 	}
 

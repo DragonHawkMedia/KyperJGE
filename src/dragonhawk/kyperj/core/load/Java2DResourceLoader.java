@@ -11,6 +11,8 @@ import dragonhawk.kyperj.core.graphics.GameImage;
 import dragonhawk.kyperj.core.graphics.GameSheet;
 import dragonhawk.kyperj.core.graphics.Java2DGameImage;
 import dragonhawk.kyperj.core.graphics.Java2DGameSheet;
+import dragonhawk.kyperj.core.graphics.font.GameFont;
+import dragonhawk.kyperj.core.graphics.font.SimpleGameFont;
 import dragonhawk.kyperj.core.sound.GameSound;
 import dragonhawk.kyperj.core.sound.GameSound.SoundType;
 import dragonhawk.kyperj.core.sound.SimpleGameSound;
@@ -134,7 +136,6 @@ public class Java2DResourceLoader implements GameResourceLoader{
 							while(current_load_index< resources.get(currentload).size()){
 								resources.get(state).get(current_load_index).load();
 								current_load_index++;
-								System.out.println("loading");
 							}
 							KyperJGame.getGSM().getGameState(currentload).finishLoading();
 						}
@@ -142,6 +143,15 @@ public class Java2DResourceLoader implements GameResourceLoader{
 					}
 				}).start();
 		
+	}
+
+	@Override
+	public GameFont loadGameFont(String file, boolean inproject,int width,int height) {
+		if(resources.containsKey(file))
+			return (GameFont)resources.get(file);
+		GameFont font =  new SimpleGameFont(file,inproject,width,height);
+		resources.get(currentload).add(font);
+		return font;
 	}
 
 

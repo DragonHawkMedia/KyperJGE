@@ -25,7 +25,7 @@ public class test extends KyperJGame{
 		                         
 		test t = new test();
 		t.setMode(JAVA2D);
-		DisplaySettings settings = new DisplaySettings(new Resolution(300,16,9,2f));
+		DisplaySettings settings = new DisplaySettings(new Resolution(400,16,9,2f));
 		settings.setTripleBuffer(false);
 		settings.setResize(false);
 		settings.setSync(80);

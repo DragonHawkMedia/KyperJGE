@@ -7,6 +7,8 @@ import dragonhawk.kyperj.core.graphics.GameImage;
 import dragonhawk.kyperj.core.graphics.GameSheet;
 import dragonhawk.kyperj.core.graphics.GraphicsComponent;
 import dragonhawk.kyperj.core.graphics.animation.KyperAnimation;
+import dragonhawk.kyperj.core.graphics.font.GameFont;
+import dragonhawk.kyperj.core.graphics.font.SimpleGameFont;
 import dragonhawk.kyperj.core.input.GameInput.InputState;
 import dragonhawk.kyperj.core.sound.GameSound;
 import dragonhawk.kyperj.core.sound.GameSound.SoundType;
@@ -17,6 +19,7 @@ public class teststate extends GameState{
 
 	GameImage test;
 	GameSheet sheet;
+	GameFont font;
 	KyperAnimation anim,anim2,anim3,anim4;
 	GameSound sound1,sound2;
 	float x = 200, y = 100;
@@ -24,7 +27,7 @@ public class teststate extends GameState{
 	
 	@Override
 	public int getStateID() {
-		return 0;
+		return id;
 	}
 
 	@Override
@@ -81,18 +84,20 @@ public class teststate extends GameState{
 		g.draw(anim4.getCurrentFrame(), (int)(x*.7), 80);
 		
 		
+		g.drawString("goofy goober pants", 120, 20, font,12);
+		
 		g.setClearColor(new Color(0x97FFFF));
 		
 	}
 
 	@Override
 	public boolean SafeInit() {
-		System.out.println("check:"+test.getID());
 		anim = new KyperAnimation();
 		anim.addFrame(sheet.imageAt(0, 3));
 		anim.addFrame(sheet.imageAt(1, 3));
 		anim.addFrame(sheet.imageAt(2, 3));
 		anim.setFrameDuration(400);
+
 		anim.setRepeat(true);
 		
 		anim2 = new KyperAnimation();
@@ -130,6 +135,8 @@ public class teststate extends GameState{
 		test = KyperJGame.getLoader().loadGameImage("C:/Users/john/Desktop/pokemansmmo/100.gif", false);
 		sheet = KyperJGame.getLoader().loadGameSheet("C:/Users/john/Desktop/KyperJ/resources/senorviro.png", false, 16);
 		sheet.removeColor(new Color(0xff00ff));
+		
+		font = KyperJGame.getLoader().loadGameFont("/simplefont.png", true, 10,16);
 		
 		sound1 = KyperJGame.getLoader().loadGameSound("C:/Users/john/Desktop/old_desktop/GitHub/JavaGroup/JavaGroup/resource/tab.ogg", false, SoundType.MUSIC);
 		sound2 = KyperJGame.getLoader().loadGameSound("C:/Users/john/Desktop/old_desktop/Maescool-Catacomb-Snatch-bd32dfd/res/sound/coin1.wav", false, SoundType.CLIP);

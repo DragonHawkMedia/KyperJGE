@@ -45,6 +45,7 @@ public class Java2DGameSheet implements GameSheet, GameResource{
 
 	@Override
 	public void load() {
+		System.out.println("Java2dGameSheet48: loaded: "+ref);
 		if(loaded)
 			return ;
 			if(xjct)
@@ -115,6 +116,11 @@ public class Java2DGameSheet implements GameSheet, GameResource{
 	public int getID() {
 		return id;
 	}
+	
+	public void setDimension(int width,int height){
+		this.square_width = width;
+		this.square_height = height;
+	}
 
 	@Override
 	public void removeColor(Color color) {
@@ -133,6 +139,18 @@ public class Java2DGameSheet implements GameSheet, GameResource{
 		this.frames = frames;
 		this.fi = fi;
 		fadein= true;
+	}
+
+	@Override
+	public GameImage getImage(int id) {
+		int x = id%(sheet.getWidth()/square_width);
+		int y = (int) Math.floor(id/(sheet.getWidth()/square_width));
+		
+		if(!subimages.containsKey(x+(y*(sheet.getWidth()/tile_square_size)))){
+			Java2DGameImage sub = new Java2DGameImage(sheet.getSubimage(x*square_width, y*square_height, square_width, square_height),ref, subimages.size());
+			subimages.put(x+(y*(sheet.getWidth()/square_width)), sub);
+		}	
+		return subimages.get(x+(y*(sheet.getWidth()/square_width)));
 	}
 
 }

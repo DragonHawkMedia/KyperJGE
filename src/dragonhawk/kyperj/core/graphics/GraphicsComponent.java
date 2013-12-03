@@ -63,6 +63,6 @@ public interface GraphicsComponent {
 	 */
 	public void show();
 	
-	public void drawString(String string,float x, float y, GameFont font);
+	public void drawString(String string,float x, float y, GameFont font,int size);
 
 }

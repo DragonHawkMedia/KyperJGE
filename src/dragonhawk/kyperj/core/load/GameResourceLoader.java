@@ -4,6 +4,7 @@ import java.util.List;
 
 import dragonhawk.kyperj.core.graphics.GameImage;
 import dragonhawk.kyperj.core.graphics.GameSheet;
+import dragonhawk.kyperj.core.graphics.font.GameFont;
 import dragonhawk.kyperj.core.sound.GameSound;
 import dragonhawk.kyperj.core.sound.GameSound.SoundType;
 import dragonhawk.kyperj.core.state.GameState;
@@ -36,6 +37,8 @@ public interface GameResourceLoader {
 	 * @return
 	 */
 	public GameSheet loadGameSheet(String file, boolean inproject, int segment_size);
+	
+	public GameFont loadGameFont(String file,boolean inproject, int width,int height);
 	
 	/**
 	 * reload all assets

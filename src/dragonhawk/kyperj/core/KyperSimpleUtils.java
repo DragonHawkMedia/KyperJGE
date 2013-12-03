@@ -101,6 +101,32 @@ public class KyperSimpleUtils {
     	return bufim;
     }
     
+    public BufferedImage convertColor(BufferedImage im,final Color color, Color target){
+    	ImageFilter filter = new RGBImageFilter() {
+
+    		// the color we are looking for... Alpha bits are set to opaque
+    		public int markerRGB = color.getRGB() | 0xFF000000;
+
+    		public final int filterRGB(int x, int y, int rgb) {
+    			if ((rgb | 0xFF000000) == markerRGB) {
+    				// Mark the alpha bits as zero - transparent
+    				return 0x00FFFFFF & rgb;
+    			} else {
+    				// nothing to do
+    				return rgb;
+    			}
+    		}
+    	};
+    	
+    	ImageProducer ip = new FilteredImageSource(im.getSource(), filter);
+    	Image image = Toolkit.getDefaultToolkit().createImage(ip);
+    	BufferedImage bufim = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_4BYTE_ABGR);
+    	Graphics2D g = (Graphics2D) bufim.getGraphics();
+    	g.drawImage(image, 0, 0,null);
+    	g.dispose();
+    	return bufim;
+    }
+    
     public static BufferedImage createCompatibleBlendedSheet(BufferedImage image,int frames,float fi){
     	BufferedImage newimage = new BufferedImage(image.getWidth(), image.getHeight()*frames, BufferedImage.TYPE_4BYTE_ABGR);
     	Graphics2D g2 = (Graphics2D) newimage.getGraphics();

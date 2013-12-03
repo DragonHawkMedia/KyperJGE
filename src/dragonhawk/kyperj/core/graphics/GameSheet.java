@@ -1,6 +1,8 @@
 package dragonhawk.kyperj.core.graphics;
 
-public interface GameSheet {
+import dragonhawk.kyperj.core.load.GameResource;
+
+public interface GameSheet extends GameResource{
 	
 	/**
 	 * get the image at the specified location
@@ -23,6 +25,8 @@ public interface GameSheet {
 	 */
 	public int getHeight();
 	
+	public void setDimension(int width,int height);
+	
 	/**
 	 * get the image at the specified location 
 	 * with the specified width and height
@@ -33,6 +37,8 @@ public interface GameSheet {
 	 * @return image at location
 	 */
 	public GameImage imageAt(int x, int y, int width, int height);
+	
+	public GameImage getImage(int id);
 	
 	/**
 	 * set the size the images are split as

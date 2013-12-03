@@ -39,13 +39,12 @@ public class SplashState extends GameState{
 		for (int i = 0; i < frames-1; i++) {
 			splashanim.addFrame(splashsheet.imageAt(0, i));
 		}
-		splashanim.setFrameDuration(160);
+		splashanim.setFrameDuration(30);
 		splashanim.setRepeat(false);
 		splashanim.addAnimationCallback(new AnimationCallback() {
 			public void animationStart(Animation anim) {}
 			public void animationPauce(Animation anim) {}
 			public void animationEnd(Animation anim) {
-				System.out.println("animation ended");
 				anim_end_time = System.nanoTime();
 				KyperJGame.getLoader().load(GameState.MAIN_MENU_STATE);
 				anim_end = true;
