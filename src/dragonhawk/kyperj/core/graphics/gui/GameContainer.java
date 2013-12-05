@@ -7,9 +7,17 @@ import dragonhawk.kyperj.core.graphics.GraphicsComponent;
 public class GameContainer implements GameComponent{
 	
 	private boolean master = false;
+	private double x = 0;
+	private double y = 0;
+	private double width = 0;
+	private boolean hasfocus = false;
+	private boolean visible = false;
+	private boolean dirty = false;
+	private double height = 0;
 	private GameGui gg;
 	private GameComponent parent;
 	private ArrayList<GameComponent> components;
+	private GameComponent currentFocus;
 	
 	public GameContainer(){
 		this.components = new ArrayList<>();
@@ -29,110 +37,104 @@ public class GameContainer implements GameComponent{
 
 	@Override
 	public void setX(double x) {
-		// TODO Auto-generated method stub
+		this.x =x;
 		
 	}
 
 	@Override
 	public void setY(double y) {
-		// TODO Auto-generated method stub
-		
+		this.y = y;
 	}
 
 	@Override
 	public void setWidth(double width) {
-		// TODO Auto-generated method stub
+		this.width = width;
 		
 	}
 
 	@Override
 	public void setHeight(double height) {
-		// TODO Auto-generated method stub
-		
+		this.height = height;
 	}
 
 	@Override
 	public double getWidth() {
-		// TODO Auto-generated method stub
-		return 0;
+		return width;
 	}
 
 	@Override
 	public double getHeight() {
-		// TODO Auto-generated method stub
-		return 0;
+		return height;
 	}
 
 	@Override
 	public int getX() {
-		// TODO Auto-generated method stub
-		return 0;
+		return (int)x;
 	}
 
 	@Override
 	public int getY() {
-		// TODO Auto-generated method stub
-		return 0;
+		return (int)y;
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
+		for (int i = 0; i < components.size(); i++) {
+			if(components.get(i).isVisible())
+				if(components.get(i).hasFocus())
+					currentFocus = components.get(i);
+				components.get(i).update();
+		}
 	}
 
 	@Override
 	public boolean isDirty() {
-		// TODO Auto-generated method stub
-		return false;
+		return dirty;
 	}
 
 	@Override
 	public boolean hasFocus() {
-		// TODO Auto-generated method stub
-		return false;
+		return hasfocus;
 	}
 
 	@Override
 	public void requestFocus() {
-		// TODO Auto-generated method stub
-		
+		hasfocus = true;
+		if(hasParent())
+			parent.requestFocus();
 	}
 
 	@Override
 	public void restoreOrder() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void organize() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public boolean isVisible() {
-		// TODO Auto-generated method stub
-		return false;
+		return visible;
 	}
 
 	@Override
 	public void setVisible(boolean visible) {
-		// TODO Auto-generated method stub
-		
+		this.visible = visible;
 	}
 
 	@Override
 	public boolean hasChildren() {
-		// TODO Auto-generated method stub
-		return false;
+		return components.size()>0;
+	}
+	
+	public void add(GameComponent comp){
+		
 	}
 
 	@Override
 	public GameComponent[] getChildren() {
-		// TODO Auto-generated method stub
-		return null;
+		return components.toArray(new GameComponent[components.size()]);
 	}
 
 	@Override
@@ -148,8 +150,21 @@ public class GameContainer implements GameComponent{
 
 	@Override
 	public void render(GraphicsComponent g) {
-		// TODO Auto-generated method stub
-		
+		for (int i = 0; i < components.size(); i++) {
+			if(components.get(i).isVisible())
+				if(currentFocus!=null){
+					if(components.get(i)!=currentFocus)
+						components.get(i).render(g);
+				}else{
+					components.get(i).render(g);
+				}
+		}
+		for (int i = 0; i <	1000; i++) {
+			g.drawString("this is the gui", i, i, gg.getFont(), 10,false);
+		}
+		if(currentFocus!=null&&currentFocus.isVisible())
+			currentFocus.render(g);
+				
 	}
 
 }

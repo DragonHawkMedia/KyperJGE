@@ -21,7 +21,9 @@ public class GameGui {
 		
 		switch(mode){
 		case DEFAULT: gamegui = new GameGui(KyperJGame.getInput());
-					  gamegui.setDefaultContainer(new GameContainer());
+					  GameContainer con = new GameContainer();
+					  con.setVisible(true);
+					  gamegui.setDefaultContainer(con);
 			break;
 		}
 		
@@ -29,7 +31,8 @@ public class GameGui {
 	}
 	
 	public void render(GraphicsComponent g){
-		
+		if(container.isVisible())
+			container.render(g);
 	}
 	
 	public GameFont getFont(){
@@ -54,8 +57,8 @@ public class GameGui {
 	}
 	
 	public void update(){
-		
-		
+		if(container.isVisible())
+			container.update();
 	}
 	
 	

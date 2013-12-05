@@ -26,7 +26,7 @@ public class Java2DGameImage implements GameImage, GameResource{
 	}
 	
 	public Java2DGameImage(BufferedImage image,String ref, int id){
-		this.image = image;
+		this.image = KyperSimpleUtils.toCompatibleImage(image);
 		this.ref = ref;
 		this.width = image.getWidth();
 		this.height = image.getHeight();

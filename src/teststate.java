@@ -9,6 +9,8 @@ import dragonhawk.kyperj.core.graphics.GraphicsComponent;
 import dragonhawk.kyperj.core.graphics.animation.KyperAnimation;
 import dragonhawk.kyperj.core.graphics.font.GameFont;
 import dragonhawk.kyperj.core.graphics.font.SimpleGameFont;
+import dragonhawk.kyperj.core.graphics.gui.GameGui;
+import dragonhawk.kyperj.core.graphics.gui.GameGui.GuiMode;
 import dragonhawk.kyperj.core.input.GameInput.InputState;
 import dragonhawk.kyperj.core.sound.GameSound;
 import dragonhawk.kyperj.core.sound.GameSound.SoundType;
@@ -19,6 +21,7 @@ public class teststate extends GameState{
 
 	GameImage test;
 	GameSheet sheet;
+	GameGui gui;
 	GameFont font;
 	KyperAnimation anim,anim2,anim3,anim4;
 	GameSound sound1,sound2;
@@ -62,6 +65,8 @@ public class teststate extends GameState{
 		
 		if(sound1.isloaded() && !sound1.isPlaying());
 		//	sound1.play(true);
+		
+		gui.update();
 	}
 
 	@Override
@@ -84,14 +89,20 @@ public class teststate extends GameState{
 		g.draw(anim4.getCurrentFrame(), (int)(x*.7), 80);
 		
 		
-		g.drawString("FPS:"+KyperJGame.getGame().getFPS(), 0, 20, font,7);
-		g.drawString("UPS:"+KyperJGame.getGame().getUPS(), 0, 27, font,7);
+		//g.drawString("FPS:"+KyperJGame.getGame().getFPS(), 0, 21, font,7);
+		g.drawString("UPS:"+KyperJGame.getGame().getUPS(), 0, 28, font,7,false);
+		
+		
+		gui.render(g);
+		
 		g.setClearColor(new Color(0x97FFFF));
 		
 	}
 
 	@Override
 	public boolean SafeInit() {
+		gui = GameGui.createGameGui(GuiMode.DEFAULT);
+		gui.setFont(font);
 		anim = new KyperAnimation();
 		anim.addFrame(sheet.imageAt(0, 3));
 		anim.addFrame(sheet.imageAt(1, 3));
@@ -132,6 +143,7 @@ public class teststate extends GameState{
 
 	@Override
 	public void load() {
+		
 		test = KyperJGame.getLoader().loadGameImage("C:/Users/john/Desktop/pokemansmmo/100.gif", false);
 		sheet = KyperJGame.getLoader().loadGameSheet("C:/Users/john/Desktop/KyperJ/resources/senorviro.png", false, 16);
 		sheet.removeColor(new Color(0xff00ff));

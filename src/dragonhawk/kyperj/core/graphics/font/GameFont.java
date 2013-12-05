@@ -7,11 +7,13 @@ public interface GameFont extends GameResource{
 	
 	public static final String FONT_REF = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890,.'\";:!?@#$%^&*()_-+={}[]<>/|\\ ";
 	
-	public GameImage[] getString(String s);
+	public GameImage[] getStringChars(String s);
 	
 	public void setSize(int size);
 	
 	public GameImage getChar(String c);
 	
 	public void setColor(java.awt.Color color);
+	
+	public GameImage getString(String s);
 }
