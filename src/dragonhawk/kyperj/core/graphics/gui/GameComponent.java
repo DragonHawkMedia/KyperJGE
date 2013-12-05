@@ -1,5 +1,7 @@
 package dragonhawk.kyperj.core.graphics.gui;
 
+import dragonhawk.kyperj.core.graphics.GraphicsComponent;
+
 public interface GameComponent {
 	
 	/**
@@ -121,5 +123,9 @@ public interface GameComponent {
 	 * @return child components
 	 */
 	public GameComponent[] getChildren();
+	
+	public void setParent(Object parent);
+	
+	public void render(GraphicsComponent g);
 
 }

@@ -57,11 +57,11 @@ public class teststate extends GameState{
 		}
 		
 		if(KyperJGame.getInput().getKeyState(KeyEvent.VK_SPACE)==InputState.PRESSED_ONCE){
-			sound2.play(false);
+		//	sound2.play(false);
 		}
 		
-		if(sound1.isloaded() && !sound1.isPlaying())
-			sound1.play(true);
+		if(sound1.isloaded() && !sound1.isPlaying());
+		//	sound1.play(true);
 	}
 
 	@Override
@@ -84,8 +84,8 @@ public class teststate extends GameState{
 		g.draw(anim4.getCurrentFrame(), (int)(x*.7), 80);
 		
 		
-		g.drawString("goofy goober pants", 120, 20, font,12);
-		
+		g.drawString("FPS:"+KyperJGame.getGame().getFPS(), 0, 20, font,7);
+		g.drawString("UPS:"+KyperJGame.getGame().getUPS(), 0, 27, font,7);
 		g.setClearColor(new Color(0x97FFFF));
 		
 	}
