@@ -44,7 +44,7 @@ public class GameGui {
 	}
 	
 	public void add(GameComponent comp){
-		
+		getDefualtContainer().add(comp);
 	}
 	
 	public GameContainer getDefualtContainer(){

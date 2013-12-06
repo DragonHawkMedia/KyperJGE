@@ -129,7 +129,15 @@ public class GameContainer implements GameComponent{
 	}
 	
 	public void add(GameComponent comp){
-		
+		int cur = 0;
+		if(components.size()>0)
+			cur = (int) components.get(components.size()-1).getWidth()+((components.size())*5);
+			
+		components.add(comp);
+		comp.setParent(this);
+		comp.setX(10+cur);
+		comp.setY(10);
+		comp.setVisible(isVisible());
 	}
 
 	@Override
@@ -159,9 +167,8 @@ public class GameContainer implements GameComponent{
 					components.get(i).render(g);
 				}
 		}
-		for (int i = 0; i <	1000; i++) {
-			g.drawString("this is the gui", i, i, gg.getFont(), 10,false);
-		}
+			g.drawString("this is a container", 0, 0, gg.getFont(), 10,false);
+		
 		if(currentFocus!=null&&currentFocus.isVisible())
 			currentFocus.render(g);
 				

@@ -9,6 +9,8 @@ import dragonhawk.kyperj.core.graphics.GraphicsComponent;
 import dragonhawk.kyperj.core.graphics.animation.KyperAnimation;
 import dragonhawk.kyperj.core.graphics.font.GameFont;
 import dragonhawk.kyperj.core.graphics.font.SimpleGameFont;
+import dragonhawk.kyperj.core.graphics.gui.GameButton;
+import dragonhawk.kyperj.core.graphics.gui.GameButtonCallback;
 import dragonhawk.kyperj.core.graphics.gui.GameGui;
 import dragonhawk.kyperj.core.graphics.gui.GameGui.GuiMode;
 import dragonhawk.kyperj.core.input.GameInput.InputState;
@@ -21,6 +23,8 @@ public class teststate extends GameState{
 
 	GameImage test;
 	GameSheet sheet;
+	GameButton button;
+	GameButton button2;
 	GameGui gui;
 	GameFont font;
 	KyperAnimation anim,anim2,anim3,anim4;
@@ -60,7 +64,7 @@ public class teststate extends GameState{
 		}
 		
 		if(KyperJGame.getInput().getKeyState(KeyEvent.VK_SPACE)==InputState.PRESSED_ONCE){
-		//	sound2.play(false);
+			sound2.play(false);
 		}
 		
 		if(sound1.isloaded() && !sound1.isPlaying());
@@ -89,20 +93,25 @@ public class teststate extends GameState{
 		g.draw(anim4.getCurrentFrame(), (int)(x*.7), 80);
 		
 		
-		//g.drawString("FPS:"+KyperJGame.getGame().getFPS(), 0, 21, font,7);
-		g.drawString("UPS:"+KyperJGame.getGame().getUPS(), 0, 28, font,7,false);
-		
-		
 		gui.render(g);
 		
-		g.setClearColor(new Color(0x97FFFF));
+		g.setClearColor(new Color(0x99FF99));
 		
 	}
 
 	@Override
 	public boolean SafeInit() {
 		gui = GameGui.createGameGui(GuiMode.DEFAULT);
+		button = new GameButton();
+		button2 = new GameButton();
+		button2.addButtonCallback(new GameButtonCallback() {
+			public void buttonPressed(GameButton button) {sound2.play(false);}
+			public void buttonExited(GameButton button) {}
+			public void buttonEntered(GameButton button) {}
+		});
 		gui.setFont(font);
+		gui.add(button);
+		gui.add(button2);
 		anim = new KyperAnimation();
 		anim.addFrame(sheet.imageAt(0, 3));
 		anim.addFrame(sheet.imageAt(1, 3));

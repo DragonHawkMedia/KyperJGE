@@ -110,10 +110,10 @@ public class Java2DGameInput implements GameInput{
 		for (int i = 0; i < NUM_OF_BUTTONS; i++) {
 			
 			if(MOUSE_BUTTONS[i]){
-				if(MOUSE_BUTTON_STATES[i]==InputState.PRESSED_ONCE)
-					MOUSE_BUTTON_STATES[i] = InputState.PRESSED;
-				else
+				if(MOUSE_BUTTON_STATES[i]==InputState.RELEASED)
 					MOUSE_BUTTON_STATES[i] = InputState.PRESSED_ONCE;
+				else
+					MOUSE_BUTTON_STATES[i] = InputState.PRESSED;
 			}else{
 				MOUSE_BUTTON_STATES[i] = InputState.RELEASED;
 			}
