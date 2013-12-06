@@ -1,5 +1,6 @@
 package dragonhawk.kyperj.core.graphics.gui;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import dragonhawk.kyperj.core.graphics.GraphicsComponent;
@@ -167,11 +168,24 @@ public class GameContainer implements GameComponent{
 					components.get(i).render(g);
 				}
 		}
-			g.drawString("this is a container", 0, 0, gg.getFont(), 10,false);
 		
 		if(currentFocus!=null&&currentFocus.isVisible())
 			currentFocus.render(g);
 				
+	}
+
+	@Override
+	public GameGui getGui() {
+		if(this.master)
+		return gg;
+		else
+			return parent.getGui();
+	}
+
+	@Override
+	public void setBackGroundColor(Color color) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

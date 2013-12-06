@@ -3,7 +3,6 @@ package dragonhawk.kyperj.core.graphics.gui;
 import java.awt.Color;
 
 import dragonhawk.kyperj.core.KyperJGame;
-import dragonhawk.kyperj.core.display.GameDisplay;
 import dragonhawk.kyperj.core.graphics.GraphicsComponent;
 import dragonhawk.kyperj.core.input.GameInput;
 import dragonhawk.kyperj.core.input.GameInput.InputState;
@@ -21,6 +20,7 @@ public class GameButton implements GameComponent{
 	private GameComponent parent;
 	private double x , y , width , height;
 	private String s;
+	private Color color;
 	
 	public GameButton(){
 		this("");
@@ -28,11 +28,13 @@ public class GameButton implements GameComponent{
 	
 	public GameButton(String s){
 		game = KyperJGame.getGame();
+		this.color = Color.LIGHT_GRAY;
 		this.s = s;
 		width = 30;
 		height = 10;
 		callback = new GameButtonCallback() {
 			public void buttonPressed(GameButton button) {System.out.println("pressed");}
+			public void buttonReleased(GameButton button){}
 			public void buttonExited(GameButton button) {System.out.println("exited");}
 			public void buttonEntered(GameButton button) {System.out.println("entered");}
 		};
@@ -101,9 +103,21 @@ public class GameButton implements GameComponent{
 				callback.buttonEntered(this);
 				hovered = true;
 			}
-			if(in.getMouseButtonState(1)==InputState.PRESSED_ONCE){
-				callback.buttonPressed(this);
+			if(in.getMouseButtonState(1)==InputState.PRESSED_ONCE || in.getMouseButtonState(1)== InputState.PRESSED){
+				if(!pressed){
+					callback.buttonPressed(this);
+					pressed = true;
+				}	
+			}else{
+				if(pressed){
+					pressed = false;
+					callback.buttonReleased(this);
+				}
+					
 			}
+		}else if(in.getMouseButtonState(1)==InputState.RELEASED&&pressed){
+				pressed = false;
+				callback.buttonReleased(this);
 		}else{
 			if(hovered){
 				callback.buttonExited(this);
@@ -169,12 +183,27 @@ public class GameButton implements GameComponent{
 
 	@Override
 	public void render(GraphicsComponent g) {
-		g.setColor(Color.GRAY);
-		g.fillRect((int)x, (int)y, (int)width, (int)height);
+		if(color!=null){
+			g.setColor(color);
+			g.fillRect((int)x, (int)y, (int)width, (int)height);
+		}
+		if(!s.equals(""))
+			g.drawString(s, (float)x, (float)y, getGui().getFont(), 5, false);
 	}
 	
 	public void addButtonCallback(GameButtonCallback callback){
 		this.callback = callback;
+	}
+
+	@Override
+	public GameGui getGui() {
+		return parent.getGui();
+	}
+
+	@Override
+	public void setBackGroundColor(Color color) {
+		this.color = color;
+		
 	}
 	
 }

@@ -16,4 +16,5 @@ public interface GameFont extends GameResource{
 	public void setColor(java.awt.Color color);
 	
 	public GameImage getString(String s);
+	
 }

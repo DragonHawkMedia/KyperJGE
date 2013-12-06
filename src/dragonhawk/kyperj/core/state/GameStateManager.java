@@ -14,6 +14,7 @@ public class GameStateManager {
 	public GameStateManager(){
 		states = new HashMap<String, GameState>();
 		add(new SplashState(), GameState.SPLASH_STATE);
+		add(new DefaultState(), GameState.MAIN_MENU_STATE);
 		current_state = GameState.SPLASH_STATE;
 		prev_state = GameState.SPLASH_STATE;
 	}

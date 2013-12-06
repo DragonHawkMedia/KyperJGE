@@ -102,12 +102,15 @@ public class teststate extends GameState{
 	@Override
 	public boolean SafeInit() {
 		gui = GameGui.createGameGui(GuiMode.DEFAULT);
-		button = new GameButton();
-		button2 = new GameButton();
+		button = new GameButton("QUIT"); 
+		button2 = new GameButton("PAUSE");
+		button2.setBackGroundColor(null);
 		button2.addButtonCallback(new GameButtonCallback() {
-			public void buttonPressed(GameButton button) {sound2.play(false);}
-			public void buttonExited(GameButton button) {}
-			public void buttonEntered(GameButton button) {}
+			public void buttonPressed(GameButton button) {sound2.play(false);
+														  button2.setX(button2.getX()+2);button2.setY(button2.getY()+2);}
+			public void buttonReleased(GameButton button){button2.setX(button2.getX()-2);button2.setY(button2.getY()-2);}
+			public void buttonExited(GameButton button) {button2.setBackGroundColor(Color.LIGHT_GRAY);}
+			public void buttonEntered(GameButton button) {button2.setBackGroundColor(Color.gray);}
 		});
 		gui.setFont(font);
 		gui.add(button);

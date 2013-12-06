@@ -1,5 +1,7 @@
 package dragonhawk.kyperj.core.graphics.gui;
 
+import java.awt.Color;
+
 import dragonhawk.kyperj.core.graphics.GraphicsComponent;
 
 public interface GameComponent {
@@ -127,5 +129,9 @@ public interface GameComponent {
 	public void setParent(Object parent);
 	
 	public void render(GraphicsComponent g);
+	
+	public GameGui getGui();
+	
+	public void setBackGroundColor(Color color);
 
 }

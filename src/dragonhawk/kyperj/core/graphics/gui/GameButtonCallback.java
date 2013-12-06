@@ -7,5 +7,7 @@ public interface GameButtonCallback {
 	public void buttonExited(GameButton button);
 	
 	public void buttonPressed(GameButton button);
+	
+	public void buttonReleased(GameButton button);
 
 }

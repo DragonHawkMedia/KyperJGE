@@ -11,7 +11,7 @@ public class test extends KyperJGame{
 	
 	public void initialize() {
 		setGame(this);
-		getGSM().add(new teststate(), GameState.MAIN_MENU_STATE);
+		//getGSM().add(new teststate(), GameState.MAIN_MENU_STATE);
 		//getGSM().changeState(GameState.MAIN_MENU_STATE);
 	}
 	
@@ -28,7 +28,7 @@ public class test extends KyperJGame{
 		DisplaySettings settings = new DisplaySettings(new Resolution(300,16,10,2f));
 		settings.setTripleBuffer(false);
 		settings.setResize(false);
-		settings.setSync(100);
+		//settings.setSync(100);
 		settings.setTitle("kyperjdemo");
 		t.setDisplaySettings(settings);
 		t.setUPS(40);

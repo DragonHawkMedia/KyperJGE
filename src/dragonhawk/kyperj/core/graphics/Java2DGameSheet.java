@@ -38,6 +38,18 @@ public class Java2DGameSheet implements GameSheet, GameResource{
 		this.id = id;
 	}
 	
+	public Java2DGameSheet(BufferedImage img,String ref,int id, int width,int height){
+		this.sheet = img;
+		this.ref = ref;
+		this.id = id;
+		this.square_width = width;
+		this.square_height = height;
+		this.width = img.getWidth();
+		this.height = img.getHeight();
+		this.tile_square_size = width;
+		this.loaded = true;
+	}
+	
 	@Override
 	public boolean isloaded() {
 		return loaded;
@@ -148,5 +160,9 @@ public class Java2DGameSheet implements GameSheet, GameResource{
 			
 		return imageAt(x, y);
 	}
+	
+	//public BufferedImage createColorVariant(Color initial,Color target){
+		
+	//} 
 
 }
