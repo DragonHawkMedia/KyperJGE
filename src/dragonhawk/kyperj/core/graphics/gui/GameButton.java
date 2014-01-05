@@ -92,6 +92,18 @@ public class GameButton implements GameComponent{
 	public int getY() {
 		return (int)y;
 	}
+	
+	public void invokePress(){
+		callback.buttonPressed(this);
+		pressed = true;
+		callback.buttonReleased(this);
+		pressed = false;
+	}
+	
+	
+	public boolean isPressed(){
+		return pressed;
+	}
 
 	@Override
 	public void update() {

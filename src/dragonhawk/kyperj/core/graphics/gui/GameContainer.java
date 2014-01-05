@@ -136,8 +136,8 @@ public class GameContainer implements GameComponent{
 			
 		components.add(comp);
 		comp.setParent(this);
-		comp.setX(10+cur);
-		comp.setY(10);
+		comp.setX(0+cur);
+		comp.setY(0);
 		comp.setVisible(isVisible());
 	}
 

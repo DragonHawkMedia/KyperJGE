@@ -60,13 +60,11 @@ public class Java2DGameDisplay implements GameDisplay {
 			e.printStackTrace();
 		}
 	}
-
-	@Override
+	
 	public void setDisplaySettings(DisplaySettings settings) {
 		Rsettings = settings;
 	}
 
-	@Override
 	public void startDisplay() throws Exception{
 		frame = new JFrame();
 		game_canvas = new Canvas();
